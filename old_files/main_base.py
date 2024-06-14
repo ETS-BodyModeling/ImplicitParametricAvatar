@@ -20,6 +20,7 @@ from pytorch3d.loss import (
     mesh_laplacian_smoothing,
     mesh_normal_consistency,
 )
+
 import numpy as np
 import torch
 import smplx
