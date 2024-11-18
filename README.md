@@ -44,6 +44,20 @@ This project leverages deep learning models, particularly SMPL-X, to handle comp
    python -m venv venv
    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
+4. Download Preprocessed PeopleSnapshot Data
+
+To use the PeopleSnapshot preprocessed data required for this project:
+
+ Visit the Google Drive link: [PeopleSnapshot Preprocessed Data](https://drive.google.com/drive/folders/1YRT0622s9sRmFqNLahuOP85OPLMZuG5e?usp=sharing).
+
+Download the entire folder by clicking the **"Download"** button on the top-right of the Drive interface.
+
+ Extract the downloaded ZIP file (if applicable) to your local directory. For instance, place the contents into a folder named `data` in the project root directory:
+
+ 5. ```bash 
+    python main.py
+
+
 ## Acknowledgements
 This project builds upon several outstanding works in the fields of 3D human modeling and computer vision. We are grateful for the contributions of the following projects and tools:
 
