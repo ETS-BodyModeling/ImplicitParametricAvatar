@@ -41,8 +41,8 @@ This project leverages deep learning models, particularly SMPL-X, to handle comp
    pip install -r requirements.txt
 
 3. ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
 ## Acknowledgements
 This project builds upon several outstanding works in the fields of 3D human modeling and computer vision. We are grateful for the contributions of the following projects and tools:
