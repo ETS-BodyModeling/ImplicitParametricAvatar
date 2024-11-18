@@ -10,7 +10,7 @@ Authors:
 - **Carlos Vázquez** ([ORCID](http://orcid.org/0000-0003-2161-8507))  
 - **Eric Paquette** ([ORCID](http://orcid.org/0000-0001-9236-647X))  
 
-**Clothed_SMPLX** In this work, we present a novel approach for three-dimensional estimation of human avatars, leveraging the Skinned Multi-Person Linear (SMPL-X) parametric body model. Our methodology integrates the strengths of:
+In this work, we present a novel approach for three-dimensional estimation of human avatars, leveraging the Skinned Multi-Person Linear (SMPL-X) parametric body model. Our methodology integrates the strengths of:
 1. A **Pixel-aligned Implicit Function (PIFuHD)** model for mesh generation.
 2. A multi-step optimization process to infer accurate SMPL-X parameters and deformation vector for clothing.
 
@@ -22,7 +22,7 @@ Authors:
 
 
 ## Overview
-Clothed_SMPLX provides a robust solution for 3D reconstruction and avatar generation from a single image. It is designed to estimate both the pose and shape of a clothed human, enabling applications in virtual try-ons, augmented reality, and human-computer interaction.
+This project provides a robust solution for 3D reconstruction and avatar generation from a single image. It is designed to estimate both the pose and shape of a clothed human, enabling applications in virtual try-ons, augmented reality, and human-computer interaction.
 
 This project leverages deep learning models, particularly SMPL-X, to handle complex challenges in 3D human modeling, ensuring real-time performance and high accuracy.
 
@@ -48,8 +48,8 @@ This project leverages deep learning models, particularly SMPL-X, to handle comp
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/faresmallek/Clothed_SMPLX.git
-   cd Clothed_SMPLX
+   git clone https://github.com/faresmallek/_SMPLX.git
+   cd _SMPLX
 
 2. ```bash
    pip install -r requirements.txt
@@ -76,13 +76,13 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
 ## Acknowledgements
 This project builds upon several outstanding works in the fields of 3D human modeling and computer vision. We are grateful for the contributions of the following projects and tools:
 
-- **PIFuHD**: Pixel-Aligned Implicit Function for High-Resolution Clothed Human Digitization. [GitHub](https://github.com/facebookresearch/pifuhd)  
+- **PIFuHD**: Pixel-Aligned Implicit Function for High-Resolution  Human Digitization. [GitHub](https://github.com/facebookresearch/pifuhd)  
 - **SMPL-X**: A unified body model that captures the pose and shape of the whole human body, including the face and hands. [Website](https://smpl-x.is.tue.mpg.de/)  
 - **X-Avatar**: A tool for creating photorealistic avatars. [GitHub](https://github.com/Skype-line/X-Avatar)  
-- **PeopleSnapshot**: A dataset and methodology for capturing clothed human subjects in 3D. [Website](https://peoplesnapshot.is.tue.mpg.de/)  
+- **PeopleSnapshot**: A dataset and methodology for capturing  human subjects in 3D. [Website](https://peoplesnapshot.is.tue.mpg.de/)  
 - **LaMa**: An open-source framework for image inpainting. [GitHub](https://github.com/saic-mdal/lama)
 
-Their contributions have been invaluable in the development of Clothed_SMPLX. We deeply appreciate their efforts in advancing research and providing open-source tools to the community.
+Their contributions have been invaluable in the development of our project. We deeply appreciate their efforts in advancing research and providing open-source tools to the community.
 
 
 ### Funding
