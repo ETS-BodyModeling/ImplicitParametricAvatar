@@ -733,14 +733,14 @@ if __name__ == "__main__":
 
   # reconstruction //////////////////////////////////////////////////////////////////////////////////////
 
-  # main(abs_path, out_path_recons, root_path, model_folder, model_type, ext=ext,
-  #       gender=gender, plot_joints=plot_joints,
-  #       num_betas=num_betas,
-  #       num_expression_coeffs=num_expression_coeffs,
-  #       sample_shape=sample_shape,
-  #       sample_expression=sample_expression,
-  #       plotting_module=plotting_module,
-  #       use_face_contour=use_face_contour)
+  main(abs_path, out_path_recons, root_path, model_folder, model_type, ext=ext,
+        gender=gender, plot_joints=plot_joints,
+        num_betas=num_betas,
+        num_expression_coeffs=num_expression_coeffs,
+        sample_shape=sample_shape,
+        sample_expression=sample_expression,
+        plotting_module=plotting_module,
+        use_face_contour=use_face_contour)
 
     # render  //////////////////////////////////////////////////////////////////////////////////////
 # ************************************************************************************************************
