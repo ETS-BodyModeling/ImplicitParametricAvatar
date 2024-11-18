@@ -47,7 +47,7 @@ This project builds upon several outstanding works in the fields of 3D human mod
 
 - **PIFuHD**: Pixel-Aligned Implicit Function for High-Resolution Clothed Human Digitization. [GitHub](https://github.com/facebookresearch/pifuhd)  
 - **SMPL-X**: A unified body model that captures the pose and shape of the whole human body, including the face and hands. [Website](https://smpl-x.is.tue.mpg.de/)  
-- **xAvatar**: A tool for creating photorealistic avatars. [GitHub](https://github.com/x-avatars/xavatar)  
+- **X-Avatar**: A tool for creating photorealistic avatars. [GitHub](https://github.com/Skype-line/X-Avatar)  
 - **PeopleSnapshot**: A dataset and methodology for capturing clothed human subjects in 3D. [Website](https://peoplesnapshot.is.tue.mpg.de/)  
 - **LaMa**: An open-source framework for image inpainting. [GitHub](https://github.com/saic-mdal/lama)
 
