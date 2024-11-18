@@ -10,9 +10,9 @@ Authors:
 - **Carlos Vázquez** ([ORCID](http://orcid.org/0000-0003-2161-8507))  
 - **Eric Paquette** ([ORCID](http://orcid.org/0000-0001-9236-647X))  
 
-**Clothed_SMPLX** In this work, we present a novel approach for three-dimensional estimation of human avatars, leveraging the Skinned Multi-Person Linear (SMPL) parametric body model. Our methodology integrates the strengths of:
-1. A **Pixel-aligned Implicit Function (PIFu)** model for mesh generation.
-2. A multi-step optimization process to infer accurate SMPL parameters.
+**Clothed_SMPLX** In this work, we present a novel approach for three-dimensional estimation of human avatars, leveraging the Skinned Multi-Person Linear (SMPL-X) parametric body model. Our methodology integrates the strengths of:
+1. A **Pixel-aligned Implicit Function (PIFuHD)** model for mesh generation.
+2. A multi-step optimization process to infer accurate SMPL-X parameters and deformation vector for clothing.
 
 ## Table of Contents
 - [Overview](#overview)
