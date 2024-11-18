@@ -46,7 +46,7 @@ def apply_lama(im_path,mask_path,save_path):
       'mask_file': ('mask1.jpg', open(mask_path, 'rb'), 'image/png')
       },
     headers = { 'x-api-key': '649f32d262bc88fdc58249c908bef9601611ccb32565177364fbcfea63af0291ef383fa83505acb549d318d1a4d99293'}
-    # headers = { 'x-api-key': '9a10006ebbf05fdbacf5f1ada9e969919b10b26f1f7e340b581b8bc1007d954d663d61ed76154be85eef932dc46e548e'}
+
   )
   if (r.ok):
     with open(save_path, 'wb') as f:
