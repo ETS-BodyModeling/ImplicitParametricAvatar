@@ -44,11 +44,11 @@ This project leverages deep learning models, particularly SMPL-X, to handle comp
    python -m venv venv
    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
-4. Download Preprocessed PeopleSnapshot Data
+4. Download Preprocessed X-Avatar Data
 
-To use the PeopleSnapshot preprocessed data required for this project:
+To use the X-Avatar preprocessed data required for this project:
 
- Visit the Google Drive link: [PeopleSnapshot Preprocessed Data](https://drive.google.com/drive/folders/1YRT0622s9sRmFqNLahuOP85OPLMZuG5e?usp=sharing).
+ Visit the Google Drive link: [X-Avatar Preprocessed Data](https://drive.google.com/drive/folders/1YRT0622s9sRmFqNLahuOP85OPLMZuG5e?usp=sharing).
 
 Download the entire folder by clicking the **"Download"** button on the top-right of the Drive interface.
 
