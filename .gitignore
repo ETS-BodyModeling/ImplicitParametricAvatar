@@ -1,1 +1,7 @@
-/data
+/data/recon
+/data/target
+/data/target_mesh
+/models
+/output_finale
+/output_finale_render
+/.venv

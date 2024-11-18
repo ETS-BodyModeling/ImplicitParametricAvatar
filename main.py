@@ -25,12 +25,12 @@ import os
 import os.path as osp
 from os import walk
 import numpy as np
-from dgl.geometry import farthest_point_sampler
+#from dgl.geometry import farthest_point_sampler
 import os.path as osp
 import argparse
 import trimesh
 import cv2
-from pytorch3d.transforms import RotateAxisAngle
+# from pytorch3d.transforms import RotateAxisAngle
 from torchvision.utils import save_image
 from torchvision.transforms import ToTensor, transforms
 import torch
@@ -95,6 +95,18 @@ from trimesh.exchange.load import Trimesh
 import numpy as np
 import csv
 from pytorch3d.structures import Meshes
+from pathlib import Path
+# root_path = os.path.dirname(os.path.abspath(__file__)) + '/'
+import logging
+
+# Configure logging
+logging.basicConfig(
+    filename='application.log',  # Name of the log file
+    level=logging.INFO,  # Minimum severity level to capture (INFO and above)
+    format='%(asctime)s - %(levelname)s - %(message)s',  # Log format
+    datefmt='%Y-%m-%d %H:%M:%S',  # Date format
+    filemode='w' 
+)
 
 def normal_consistency_metric_nn(mesh1, mesh2):
     """
@@ -490,7 +502,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
 
 
 
-def main(abs_path, out_path, model_folder,
+def main(abs_path, out_path, root_path, model_folder,
          model_type='smplx',
          ext='npz',
          gender='neutral',
@@ -526,6 +538,7 @@ def main(abs_path, out_path, model_folder,
       for names in filenames:
         if names.endswith(".obj"):
           print(names)
+          logging.info(f"Processing file: {names}")
           if names[7:13]=='female':
             gender='female'
           else:
@@ -539,6 +552,8 @@ def main(abs_path, out_path, model_folder,
           if not os.path.exists(path):
             os.mkdir(path)
 
+        
+      
           model = smplx.create(model_folder, model_type=model_type,
                               gender=gender, use_face_contour=use_face_contour,
                               num_betas=num_betas,
@@ -615,9 +630,10 @@ def main(abs_path, out_path, model_folder,
           # Calculate the duration
           duration = end_time - start_time
           print(f"The process of optimization took {duration} seconds.")
+          logging.info(f"The process of optimization took {duration} seconds.")
 
           start_time = time.time()
-          extract_texture_pifu(pifu_mesh,mesh_f,'/home/ext_fares_podform3d_com/test/data/smplx_uv.obj',path,uv_size=1024)
+          extract_texture_pifu(pifu_mesh,mesh_f, os.path.join(root_path, 'data/smplx_uv.obj'),path,uv_size=1024)
           # t_params,global_orient,left_hand_pose,right_hand_pose
           data={'gender':gender,'scale':s1_params,'beta':betas,'theta':body_pose,'expression':expression,'D':D,'t_params':t_params,'global_orient':global_orient,'left_hand_pose':left_hand_pose,'right_hand_pose':right_hand_pose}
           np.save(path+'/'+names[:-4]+ '_data.npy', data)
@@ -626,6 +642,7 @@ def main(abs_path, out_path, model_folder,
           # Calculate the duration
           duration = end_time - start_time
           print(f"The process of texture extraction took {duration} seconds.")
+          logging.info(f"The process of texture extraction took {duration} seconds.")
 
           start_time = time.time()
           path_texture=os.path.join(path, "texture.png")
@@ -635,6 +652,7 @@ def main(abs_path, out_path, model_folder,
           # Calculate the duration
           duration = end_time - start_time
           print(f"The process of texture completion took {duration} seconds.")
+          logging.info(f"The process of texture completion took {duration} seconds.")
 
           use_lama = False
           if use_lama:
@@ -645,7 +663,11 @@ def main(abs_path, out_path, model_folder,
 
 
 if __name__ == "__main__":
+  # root_path = Path(__file__).resolve().parents[0]
+  root_path = '/home/fares_uman3d_com/Clothed_SMPLX'
 
+  
+ 
   folder_name = str(18)
 
   MSE_loss = nn.MSELoss()
@@ -661,27 +683,28 @@ if __name__ == "__main__":
       torch.cuda.set_device(device)
   else:
       device = torch.device("cpu")
-  read_dictionary = np.load('/home/ext_fares_podform3d_com/test/data/sub_target.npy',allow_pickle='TRUE').item()
+
+
+  read_dictionary = np.load(os.path.join(root_path, 'data/sub_target.npy'), allow_pickle='TRUE').item()
   idx_D=read_dictionary['idx']
-  read_dictionary = np.load('/home/ext_fares_podform3d_com/test/data/not_penelized.npy',allow_pickle='TRUE').item()
+  read_dictionary = np.load(os.path.join(root_path, 'data/not_penelized.npy'),allow_pickle='TRUE').item()
   idx_not_penelized=read_dictionary['idx']
-  read_dictionary = np.load('/home/ext_fares_podform3d_com/test/data/index_regularisation.npy',allow_pickle='TRUE').item()
+  read_dictionary = np.load(os.path.join(root_path, 'data/index_regularisation.npy') ,allow_pickle='TRUE').item()
   idx_regularisation=read_dictionary['idx']
   faces_regularisation=read_dictionary['faces']
 
-  abs_path='/home/ext_fares_podform3d_com/test/data/recon/'
 
-  abs_path_target = '/home/ext_fares_podform3d_com/test/data/target'
+  abs_path = os.path.join(root_path, 'data/recon/')
+  abs_path_target = os.path.join(root_path, 'data/target')
+  abs_path_target_mesh = os.path.join(root_path, 'data/target_mesh')
+  out_path_recons = os.path.join(root_path, 'output_finale/', folder_name)
 
-  abs_path_target_mesh = '/home/ext_fares_podform3d_com/test/data/target_mesh'
-
-  out_path_recons='/home/ext_fares_podform3d_com/test/output_finale/'
-  out_path_recons= os.path.join(out_path_recons, folder_name)
   if not os.path.exists(out_path_recons):
       # If it doesn't exist, create it
       os.mkdir(out_path_recons)
 
-  save_path='/home/ext_fares_podform3d_com/test/output_finale_render/'
+  save_path = os.path.join(root_path, 'output_finale_render/')
+
   if not os.path.exists(out_path_recons):
     os.mkdir(out_path_recons)
   save_path= os.path.join(save_path, folder_name)
@@ -691,7 +714,7 @@ if __name__ == "__main__":
 # ***********************************************************************************
 
   # model_folder = osp.expanduser(osp.expandvars('models'))
-  model_folder = '/home/ext_fares_podform3d_com/test/external/smplx/models'
+  model_folder = os.path.join(root_path, 'models')
   model_type = 'smplx'
   plot_joints = True
   use_face_contour = False
@@ -705,7 +728,7 @@ if __name__ == "__main__":
 
   # reconstruction //////////////////////////////////////////////////////////////////////////////////////
 
-  main(abs_path, out_path_recons, model_folder, model_type, ext=ext,
+  main(abs_path, out_path_recons, root_path, model_folder, model_type, ext=ext,
         gender=gender, plot_joints=plot_joints,
         num_betas=num_betas,
         num_expression_coeffs=num_expression_coeffs,
@@ -739,8 +762,7 @@ if __name__ == "__main__":
       # If it doesn't exist, create it
       os.mkdir(out_path_normals)
 
-
-mesh=load_obj('/home/ext_fares_podform3d_com/test/data/smplx_uv.obj')
+mesh=load_obj(os.path.join(root_path, 'data/smplx_uv.obj'))
 
 for (dirpath, dirnames,filenames) in walk(out_path_recons):
   for i,dir in enumerate(dirnames) :
@@ -769,7 +791,7 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
     tex = torch.from_numpy(img / 255.)[None].to(device)
     texture = TexturesUV(maps=tex.to(torch.float32).to(device), faces_uvs=mesh[1][2].unsqueeze(0).to(device), verts_uvs=mesh[2][1].unsqueeze(0).to(torch.float32).to(device))
 
-    model_folder = '/home/ext_fares_podform3d_com/test/external/smplx/models'
+    model_folder = os.path.join(root_path, '/models')
     model_type = 'smplx'
     plot_joints = True
     use_face_contour = False
