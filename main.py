@@ -98,6 +98,10 @@ from pytorch3d.structures import Meshes
 from pathlib import Path
 # root_path = os.path.dirname(os.path.abspath(__file__)) + '/'
 import logging
+from pathlib import Path
+import sys
+_ROOT_DIR = Path(__file__).resolve().parent
+sys.path.append(str(_ROOT_DIR))
 
 # Configure logging
 logging.basicConfig(
@@ -666,10 +670,8 @@ def main(abs_path, out_path, root_path, model_folder,
 
 
 if __name__ == "__main__":
-  # root_path = Path(__file__).resolve().parents[0]
-  root_path = '/home/fares_uman3d_com/Clothed_SMPLX'
 
-  
+  root_path = _ROOT_DIR
  
   folder_name = str(18)
 
