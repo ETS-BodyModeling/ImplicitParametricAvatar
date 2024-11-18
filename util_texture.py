@@ -3,6 +3,8 @@ import numpy as np
 import os
 from os import walk
 import requests
+
+
 def interpolate_image(image, mask):
     # Get the dimensions of the image and mask
     height, width = image.shape[:2]

@@ -36,3 +36,20 @@ This project leverages deep learning models, particularly SMPL-X, to handle comp
    ```bash
    git clone https://github.com/faresmallek/Clothed_SMPLX.git
    cd Clothed_SMPLX
+
+2. pip install -r requirements.txt
+
+3. python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+
+## Acknowledgements
+This project builds upon several outstanding works in the fields of 3D human modeling and computer vision. We are grateful for the contributions of the following projects and tools:
+
+- **PIFuHD**: Pixel-Aligned Implicit Function for High-Resolution Clothed Human Digitization. [GitHub](https://github.com/facebookresearch/pifuhd)  
+- **SMPL-X**: A unified body model that captures the pose and shape of the whole human body, including the face and hands. [Website](https://smpl-x.is.tue.mpg.de/)  
+- **xAvatar**: A tool for creating photorealistic avatars. [GitHub](https://github.com/x-avatars/xavatar)  
+- **PeopleSnapshot**: A dataset and methodology for capturing clothed human subjects in 3D. [Website](https://peoplesnapshot.is.tue.mpg.de/)  
+- **LaMa**: An open-source framework for image inpainting. [GitHub](https://github.com/saic-mdal/lama)
+
+Their contributions have been invaluable in the development of Clothed_SMPLX. We deeply appreciate their efforts in advancing research and providing open-source tools to the community.
+

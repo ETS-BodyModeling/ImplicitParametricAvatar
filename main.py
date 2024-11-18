@@ -166,6 +166,9 @@ def recalage_rigide(model, optimizer0, scheduler0, betas, expression, body_pose,
     optimizer0.zero_grad()
     output = model(betas=betas, expression=expression,body_pose=body_pose,transl=t_params,global_orient=global_orient,left_hand_pose=left_hand_pose,right_hand_pose=right_hand_pose,
               return_verts=True)
+    if i==0:
+      mesh_temp = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(),faces=model.faces)
+      mesh_temp.export(path+'/smpl_med_box.obj')
 
     # loss=torch.norm(betas[0,1:])/5+MSE_loss(output.joints.to(device)[:,body_mapping][:,[0,15,16,21,24]],pose_prior[:,[0,15,16,21,24]]) + MSE_loss(output.joints.to(device)[:,body_mapping][:,[22,23,24]].mean(1),pose_prior[:,[22,23,24]].mean(1))+ MSE_loss(output.joints.to(device)[:,body_mapping][:,[19,20,21]].mean(1),pose_prior[:,[19,20,22]].mean(1))
     loss =  chamfer_distance(output.vertices.to(device),pointcloud)[0] +  MSE_loss(output.joints.to(device)[:,body_mapping][:,[0,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,21,24]],pose_prior[:,[0,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,21,24]])  + 10*MSE_loss(output.joints.to(device)[:,body_mapping][:,[0,2,3,4,5,6,7,9,10,12,13,15,16,17,18]],pose_prior[:,[0,2,3,4,5,6,7,9,10,12,13,15,16,17,18]])+ MSE_loss(output.joints.to(device)[:,body_mapping][:,[22,23,24]].mean(1),pose_prior[:,[22,23,24]].mean(1))+ MSE_loss(output.joints.to(device)[:,body_mapping][:,[19,20,21]].mean(1),pose_prior[:,[19,20,21]].mean(1))
@@ -659,7 +662,7 @@ def main(abs_path, out_path, root_path, model_folder,
             path_mask='/home/ext_fares_podform3d_com/test/data/combined_mask.png'
             path_lama = os.path.join(path, "texture_lama2.png")
             apply_lama(path_texture_out,path_mask, path_lama) 
-          exit()
+
 
 
 if __name__ == "__main__":
@@ -699,17 +702,19 @@ if __name__ == "__main__":
   abs_path_target_mesh = os.path.join(root_path, 'data/target_mesh')
   out_path_recons = os.path.join(root_path, 'output_finale/', folder_name)
 
+  if not os.path.exists(os.path.join(root_path, 'output_finale')):
+      # If it doesn't exist, create it
+      os.mkdir(os.path.join(root_path, 'output_finale'))
   if not os.path.exists(out_path_recons):
       # If it doesn't exist, create it
       os.mkdir(out_path_recons)
 
   save_path = os.path.join(root_path, 'output_finale_render/')
 
-  if not os.path.exists(out_path_recons):
-    os.mkdir(out_path_recons)
+  if not os.path.exists(save_path):
+    os.mkdir(save_path)
   save_path= os.path.join(save_path, folder_name)
   if not os.path.exists(save_path):
-      # If it doesn't exist, create it
       os.mkdir(save_path)
 # ***********************************************************************************
 
@@ -728,14 +733,14 @@ if __name__ == "__main__":
 
   # reconstruction //////////////////////////////////////////////////////////////////////////////////////
 
-  main(abs_path, out_path_recons, root_path, model_folder, model_type, ext=ext,
-        gender=gender, plot_joints=plot_joints,
-        num_betas=num_betas,
-        num_expression_coeffs=num_expression_coeffs,
-        sample_shape=sample_shape,
-        sample_expression=sample_expression,
-        plotting_module=plotting_module,
-        use_face_contour=use_face_contour)
+  # main(abs_path, out_path_recons, root_path, model_folder, model_type, ext=ext,
+  #       gender=gender, plot_joints=plot_joints,
+  #       num_betas=num_betas,
+  #       num_expression_coeffs=num_expression_coeffs,
+  #       sample_shape=sample_shape,
+  #       sample_expression=sample_expression,
+  #       plotting_module=plotting_module,
+  #       use_face_contour=use_face_contour)
 
     # render  //////////////////////////////////////////////////////////////////////////////////////
 # ************************************************************************************************************
@@ -791,7 +796,7 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
     tex = torch.from_numpy(img / 255.)[None].to(device)
     texture = TexturesUV(maps=tex.to(torch.float32).to(device), faces_uvs=mesh[1][2].unsqueeze(0).to(device), verts_uvs=mesh[2][1].unsqueeze(0).to(torch.float32).to(device))
 
-    model_folder = os.path.join(root_path, '/models')
+    model_folder = os.path.join(root_path, 'models')
     model_type = 'smplx'
     plot_joints = True
     use_face_contour = False
