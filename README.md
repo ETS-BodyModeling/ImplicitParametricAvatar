@@ -48,8 +48,8 @@ This project leverages deep learning models, particularly SMPL-X, to handle comp
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/faresmallek/_SMPLX.git
-   cd _SMPLX
+   git clone https://github.com/ETS-BodyModeling/ImplicitParametricAvatar.git
+   cd ImplicitParametricAvatar
 
 2. ```bash
    pip install -r requirements.txt
