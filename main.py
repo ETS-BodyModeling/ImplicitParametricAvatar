@@ -663,7 +663,7 @@ def main(abs_path, out_path, root_path, model_folder,
 
           use_lama = False
           if use_lama:
-            path_mask='/home/ext_fares_podform3d_com/test/data/combined_mask.png'
+            path_mask=os.path.join(root_path, "data/combined_mask.png")
             path_lama = os.path.join(path, "texture_lama2.png")
             apply_lama(path_texture_out,path_mask, path_lama) 
 
@@ -909,9 +909,6 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
 
 
 # 2d evaluation  //////////////////////////////////////////////////////////////////////////////////////
-# root_path=save_path
-# in_path='/home/ext_fares_podform3d_com/test/data/target'
-# abs_path_target
 evaluation_pathes=['ours']
 names=['ours']
 types=['rgb','normals']
@@ -1048,8 +1045,6 @@ for i,type_select in enumerate(types) :
 
 # 3d evaluation  //////////////////////////////////////////////////////////////////////////////////////
 
-# path_in='/home/ext_fares_podform3d_com/test/data/target_mesh'
-# path_pred=in_path
 if not os.path.exists(os.path.join( save_path, 'stats_3d')):
     # Create the directory if it does not exist
     os.mkdir(os.path.join( save_path, 'stats_3d'))
