@@ -37,9 +37,11 @@ This project leverages deep learning models, particularly SMPL-X, to handle comp
    git clone https://github.com/faresmallek/Clothed_SMPLX.git
    cd Clothed_SMPLX
 
-2. pip install -r requirements.txt
+2. ```bash
+   pip install -r requirements.txt
 
-3. python -m venv venv
+3. ```bash
+python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
 ## Acknowledgements
