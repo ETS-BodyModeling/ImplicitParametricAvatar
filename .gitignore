@@ -5,3 +5,7 @@
 /output_finale
 /output_finale_render
 /.venv
+# Ignore Python cache directories
+__pycache__/
+*.pyc
+*.pyo
