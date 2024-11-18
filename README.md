@@ -50,13 +50,14 @@ This project leverages deep learning models, particularly SMPL-X, to handle comp
    ```bash
    git clone https://github.com/ETS-BodyModeling/ImplicitParametricAvatar.git
    cd ImplicitParametricAvatar
-
 2. ```bash
-   pip install -r requirements.txt
-
-3. ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+
+3. ```bash
+   pip install -r requirements.txt
+
+
 
 4. Download Preprocessed X-Avatar Data
 
