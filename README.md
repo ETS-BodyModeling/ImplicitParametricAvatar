@@ -1,6 +1,18 @@
 # Clothed_SMPLX
 
-**Clothed_SMPLX** is a 3D human body reconstruction framework that utilizes state-of-the-art techniques for accurate human pose and shape estimation from a single image of a clothed individual. The framework supports SMPL-X, a parametric model for 3D human representation.
+## Publication
+
+This project is associated with the research paper:
+
+**"Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human"**  
+Authors:  
+- **Fares Mallek** ([ORCID](http://orcid.org/0009-0001-1221-4431))  
+- **Carlos Vázquez** ([ORCID](http://orcid.org/0000-0003-2161-8507))  
+- **Eric Paquette** ([ORCID](http://orcid.org/0000-0001-9236-647X))  
+
+**Clothed_SMPLX** In this work, we present a novel approach for three-dimensional estimation of human avatars, leveraging the Skinned Multi-Person Linear (SMPL) parametric body model. Our methodology integrates the strengths of:
+1. A **Pixel-aligned Implicit Function (PIFu)** model for mesh generation.
+2. A multi-step optimization process to infer accurate SMPL parameters.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -17,10 +29,14 @@ Clothed_SMPLX provides a robust solution for 3D reconstruction and avatar genera
 This project leverages deep learning models, particularly SMPL-X, to handle complex challenges in 3D human modeling, ensuring real-time performance and high accuracy.
 
 ## Features
-- **3D Human Pose Estimation**: Accurately estimate human pose from a single image.
-- **Clothing Awareness**: Specially designed to work with images of clothed humans.
-- **SMPL-X Model Integration**: Uses SMPL-X, the state-of-the-art parametric model for 3D body shape and pose representation.
-- **Real-time Performance**: Optimized for efficient processing and real-time applications.
+- **2D Joint Estimation**: Using a pose estimation tool to recover 2D joint positions.  
+- **3D Joint Estimation**: Combining 2D poses with PIFu-generated meshes to estimate 3D joint positions.  
+- **Robust SMPL Initialization**: Rigid alignment of the SMPL model to the 3D joints with global translation and rotation optimization.  
+- **Refinement**: Enhanced parameter refinement using new loss terms, such as point-to-surface and Chamfer distances, for improved model fidelity.  
+- **Clothing Geometry Refinement**: Deformation vector fields to model tight and loose clothing geometries.  
+- **Texture Mapping**: A dedicated texture extraction and completion pipeline for detailed avatar representation.
+
+- **Real-time Animation**: Optimized for efficient processing and real-time applications.
 
 ## Installation
 
@@ -58,6 +74,7 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
     python main.py
 
 
+
 ## Acknowledgements
 This project builds upon several outstanding works in the fields of 3D human modeling and computer vision. We are grateful for the contributions of the following projects and tools:
 
@@ -69,3 +86,20 @@ This project builds upon several outstanding works in the fields of 3D human mod
 
 Their contributions have been invaluable in the development of Clothed_SMPLX. We deeply appreciate their efforts in advancing research and providing open-source tools to the community.
 
+
+### Funding
+This research was supported by the following funding sources:
+- **MITACS** (IT19934)  
+- **NSERC** (RGPIN-2021-04293 and RGPIN-2019-05252)
+
+### Citation
+
+If you use this project in your research, please cite:
+```bibtex
+@inproceedings{mallek2024implicit,
+  title={Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human},
+  author={Mallek, Fares and V{\'a}zquez, Carlos and Paquette, Eric},
+  booktitle={Proceedings of the 17th ACM SIGGRAPH Conference on Motion, Interaction, and Games},
+  pages={1--11},
+  year={2024}
+}
