@@ -45,7 +45,7 @@ def apply_lama(im_path,mask_path,save_path):
       'image_file': ('result_female-19_512.jpg', open(im_path, 'rb'), 'image/jpeg'),
       'mask_file': ('mask1.jpg', open(mask_path, 'rb'), 'image/png')
       },
-    headers = { 'x-api-key': '649f32d262bc88fdc58249c908bef9601611ccb32565177364fbcfea63af0291ef383fa83505acb549d318d1a4d99293'}
+    headers = { 'x-api-key': 'add_Lama_API_key_here' }
 
   )
   if (r.ok):
