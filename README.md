@@ -73,10 +73,22 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
 
  Extract the downloaded ZIP file (if applicable) to your local directory. For instance, place the contents into a folder named `data` in the project root directory:
 
- 5. ```bash 
-    python main.py
+ 5.  Download the required .npz files (for both male and female models) from the official SMPL-X website, place the contents into a folder named `models/smplx` in the project root directory
 
+ 6. To run the reconstruction and texture extraction pipeline, execute the following command
 
+   ```bash
+   python main_optim.py
+
+ 7. To render a frontal view of the reconstructed 3D model, use the following script:
+
+   ```bash
+   python main_render.py 
+
+8. To generate statistics about the input images and reconstructed meshes, use the following command:
+
+   ```bash  
+   python main_stats.py  
 
 ## Acknowledgements
 This project builds upon several outstanding works in the fields of 3D human modeling and computer vision. We are grateful for the contributions of the following projects and tools:
