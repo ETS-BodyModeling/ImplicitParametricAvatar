@@ -92,6 +92,12 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
    ```bash  
    python main_stats.py  
    ```
+9. To Generate Animations from Reconstructed Meshes
+
+   ```bash  
+   python main_animation.py  
+   ```
+This script applies motion sequences from the AMASS dataset to the reconstructed meshes, creating dynamic animations.
 
 ## Acknowledgements
 This project builds upon several outstanding works in the fields of 3D human modeling and computer vision. We are grateful for the contributions of the following projects and tools:
@@ -101,6 +107,7 @@ This project builds upon several outstanding works in the fields of 3D human mod
 - **X-Avatar**: A tool for creating photorealistic avatars. [GitHub](https://github.com/Skype-line/X-Avatar)  
 - **PeopleSnapshot**: A dataset and methodology for capturing  human subjects in 3D. [Website](https://peoplesnapshot.is.tue.mpg.de/)  
 - **LaMa**: An open-source framework for image inpainting. [GitHub](https://github.com/saic-mdal/lama)
+- **AMASS**: Archive of Motion Capture as Surface Shapes, a dataset for high-quality motion sequences and animations [Website](https://paperswithcode.com/dataset/amass) 
 
 Their contributions have been invaluable in the development of our project. We deeply appreciate their efforts in advancing research and providing open-source tools to the community.
 

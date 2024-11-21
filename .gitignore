@@ -1,5 +1,6 @@
 /output
 /output_render
+/output_animation
 /.venv
 /pifuhd
 # Ignore Python cache directories
