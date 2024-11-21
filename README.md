@@ -7,6 +7,9 @@ This project is associated with the research paper:
 **"Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human"*           [link_paper](https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/MIG24/9/a6c2ee09-7446-11ef-ada9-16bb50361d1f/OUT/mig24-9.html)
 
 
+This is a demo of the project in action:
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation.gif)
+
 Authors:  
 - **Fares Mallek** ([ORCID](http://orcid.org/0009-0001-1221-4431))  
 - **Carlos Vázquez** ([ORCID](http://orcid.org/0000-0003-2161-8507))  
