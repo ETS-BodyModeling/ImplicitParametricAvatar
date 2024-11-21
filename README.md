@@ -107,6 +107,17 @@ This research was supported by the following funding sources:
 - **MITACS** (IT19934)  
 - **NSERC** (RGPIN-2021-04293 and RGPIN-2019-05252)
 
+## License
+
+This work is licensed under a [Creative Commons Attribution International 4.0 License](https://creativecommons.org/licenses/by/4.0/).
+
+MIG '24, November 21–23, 2024, Arlington, VA, USA
+
+© 2024 Copyright held by the owner/author(s).  
+ACM ISBN 979-8-4007-1090-2/24/11.  
+DOI: [https://doi.org/10.1145/3677388.3696328](https://doi.org/10.1145/3677388.3696328)
+
+
 ### Citation
 
 If you use this project in your research, please cite:
