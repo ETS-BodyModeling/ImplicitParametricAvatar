@@ -1,12 +1,13 @@
 # Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DF2qVcJJMTN7scutey1qfUF_LeYsf7EW?usp=sharing) [![ACM Publication](https://img.shields.io/badge/ACM-MIG%252024-blue)](https://dl.acm.org/doi/10.1145/3677388.3696328)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DF2qVcJJMTN7scutey1qfUF_LeYsf7EW?usp=sharing) [![ACM Publication](https://img.shields.io/badge/ACM-MIG%252024-blue)](https://dl.acm.org/doi/10.1145/3677388.3696328) 
+[![View in Browser](https://img.shields.io/badge/View-HTML%20Version-orange)](https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/MIG24/9/a6c2ee09-7446-11ef-ada9-16bb50361d1f/OUT/mig24-9.html)
 
 ## Publication
 
 This project is associated with the research paper:
 
-**"Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human"*           [link_paper](https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/MIG24/9/a6c2ee09-7446-11ef-ada9-16bb50361d1f/OUT/mig24-9.html)
+**"Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human"* 
 
 
 Authors:  
