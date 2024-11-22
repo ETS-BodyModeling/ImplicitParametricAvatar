@@ -16,8 +16,13 @@ Authors:
 - **Eric Paquette** ([ORCID](http://orcid.org/0000-0001-9236-647X))  
 
 ![Teaser Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/intro_fig.png)
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/rotation.gif)
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation_1.gif)
+
+<!-- ![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/rotation.gif)
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation_1.gif) -->
+
+
+<img src="https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/rotation.gif" width="400" height="400"/>
+<img src="https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation_1.gif" width="400" height="400"/>
 
 
 In this work, we present a novel approach for three-dimensional estimation of human avatars, leveraging the Skinned Multi-Person Linear (SMPL-X) parametric body model. Our methodology integrates the strengths of:
