@@ -16,7 +16,7 @@ Authors:
 - **Eric Paquette** ([ORCID](http://orcid.org/0000-0001-9236-647X))  
 
 ![Teaser Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/intro_fig.png)
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/output_finale.gif)
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/rotation.gif)
 In this work, we present a novel approach for three-dimensional estimation of human avatars, leveraging the Skinned Multi-Person Linear (SMPL-X) parametric body model. Our methodology integrates the strengths of:
 1. A **Pixel-aligned Implicit Function (PIFuHD)** model for mesh generation.
 2. A multi-step optimization process to infer accurate SMPL-X parameters and deformation vector for clothing.
