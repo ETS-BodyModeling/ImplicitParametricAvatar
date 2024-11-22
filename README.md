@@ -135,10 +135,20 @@ DOI: [https://doi.org/10.1145/3677388.3696328](https://doi.org/10.1145/3677388.3
 
 If you use this project in your research, please cite:
 ```bibtex
-@inproceedings{mallek2024implicit,
-  title={Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human},
-  author={Mallek, Fares and V{\'a}zquez, Carlos and Paquette, Eric},
-  booktitle={Proceedings of the 17th ACM SIGGRAPH Conference on Motion, Interaction, and Games},
-  pages={1--11},
-  year={2024}
+@inproceedings{10.1145/3677388.3696328,
+  author = {Mallek, Fares and V\'{a}zquez, Carlos and Paquette, Eric},
+  title = {Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human},
+  year = {2024},
+  isbn = {9798400710902},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3677388.3696328},
+  doi = {10.1145/3677388.3696328},
+  booktitle = {Proceedings of the 17th ACM SIGGRAPH Conference on Motion, Interaction, and Games},
+  articleno = {20},
+  numpages = {11},
+  keywords = {3D modeling, Human avatars, animation, computer vision., deep neural networks, parametric models, textures},
+  location = {Arlington, VA, USA},
+  series = {MIG '24}
 }
+
