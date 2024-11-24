@@ -4,6 +4,7 @@
 /output_animation
 /.venv
 /pifuhd
+/submodules/pifuhd/checkpoints
 # Ignore Python cache directories
 __pycache__/
 *.pyc
