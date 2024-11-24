@@ -1,0 +1,3 @@
+[submodule "submodules/pifuhd"]
+	path = submodules/pifuhd
+	url = https://github.com/faresmallek/pifuhd.git
