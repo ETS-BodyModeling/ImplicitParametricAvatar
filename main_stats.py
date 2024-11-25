@@ -37,7 +37,7 @@ import csv
 from pathlib import Path
 import sys
 import argparse
-
+# this is a stat file to evaluate the results of the 3d and 2d reconstruction
 _ROOT_DIR = Path(__file__).resolve().parent
 sys.path.append(str(_ROOT_DIR))
 
