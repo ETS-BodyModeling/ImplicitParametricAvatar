@@ -3,8 +3,10 @@
 /output_render
 /output_animation
 /.venv
-
+/checkpoints
 # Ignore Python cache directories
 __pycache__/
 *.pyc
 *.pyo
+*.pyc
+
