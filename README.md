@@ -52,9 +52,10 @@ Here is an example of an animation:
    git clone https://github.com/ETS-BodyModeling/ImplicitParametricAvatar.git
    cd ImplicitParametricAvatar
 2. ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -U pip
+   pip install -r requirements.txt
 3. ```bash
    pip install -r requirements.txt
 
