@@ -55,7 +55,6 @@ Here is an example of an animation:
    python3 -m venv .venv
    source .venv/bin/activate
    pip install -U pip
-   pip install -r requirements.txt
 3. ```bash
    pip install -r requirements.txt
 
