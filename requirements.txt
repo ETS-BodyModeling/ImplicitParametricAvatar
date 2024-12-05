@@ -38,3 +38,4 @@ rtree
 torchmetrics
 lpips
 rembg
+dgl==2.0.0

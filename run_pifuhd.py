@@ -1,8 +1,8 @@
 import subprocess
 
 # Define the paths
-input_path = "/home/fares_uman3d_com/Clothed_SMPLX/data/input_pifuhd"
-output_path = "/home/fares_uman3d_com/Clothed_SMPLX/data/output_pifuhd"
+input_path = "input_path"
+output_path = "output_path"
 recon_path = f"{output_path}/pifuhd_final/recon"
 
 # Command 1: Run the simple_test script
