@@ -1,30 +1,23 @@
-import numpy as np
 import os
 from os import walk
-import torch
 from pathlib import Path
 import logging
 import sys
 import time
 from dgl.geometry import farthest_point_sampler
-import trimesh
-import torch
 import smplx
 import torch.nn as nn
-import torchvision.transforms.functional as F
 from pytorch3d.loss import (
     chamfer_distance,
-    point_mesh_face_distance,
     mesh_laplacian_smoothing,
     mesh_normal_consistency,
 )
-from pytorch3d.io import load_obj, save_obj
 from pytorch3d.structures import Meshes
 from pytorch3d.structures import Pointclouds
 import argparse
 
-from functions import *
-from util_texture import inpaint_interpolation, apply_lama
+from utils.functions import *
+from utils.util_texture import inpaint_interpolation, apply_lama
 from tqdm import tqdm
 
 if torch.cuda.is_available():
@@ -38,7 +31,7 @@ sys.path.append(str(_ROOT_DIR))
 
 # Configure logging
 logging.basicConfig(
-    filename='application.log',  # Name of the log file
+    filename='../application.log',  # Name of the log file
     level=logging.INFO,  # Minimum severity level to capture (INFO and above)
     format='%(asctime)s - %(levelname)s - %(message)s',  # Log format
     datefmt='%Y-%m-%d %H:%M:%S',  # Date format
