@@ -25,6 +25,7 @@ torch==2.0.1
 torchvision
 dgl==2.0.0
 smplx
+onnxruntime
 
 
 # On macOS:
