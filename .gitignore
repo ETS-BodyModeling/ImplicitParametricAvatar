@@ -2,6 +2,7 @@
 /output1
 /output_render
 /output_animation
+/submodules
 /.venv
 .idea/
 /checkpoints
@@ -10,4 +11,4 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyc
-
+*DS_Store
