@@ -53,7 +53,7 @@ def parse_args(args=None):
 
 if __name__ == "__main__":
 
-  root_path = _ROOT_DIR
+  root_path = _ROOT_DIR.parent
   args = parse_args()
  
 

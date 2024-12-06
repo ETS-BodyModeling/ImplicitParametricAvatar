@@ -103,7 +103,7 @@ def parse_args(args=None):
 if __name__ == "__main__":
     args = parse_args()
 
-    root_path = _ROOT_DIR
+    root_path = _ROOT_DIR.parent
     bs_path_target = os.path.join(root_path, args.data_path, 'target')
     abs_path_target = os.path.join(root_path, args.data_path, 'target')
     abs_path_target_mesh = os.path.join(root_path, args.data_path, 'target_mesh')

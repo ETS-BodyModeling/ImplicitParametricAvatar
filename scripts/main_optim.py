@@ -206,7 +206,7 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
           print("Early stopping. No improvement in loss.")
           break
   mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(),faces=model.faces)
-  mesh_f.export(path+ 'smplx_after_shape_s2.obj')
+  mesh_f.export(path+ '/smplx_after_shape_s2.obj')
 
   total_iterations = 100
   with tqdm(total=total_iterations, desc="shape optim step 3", unit="iter") as pbar:
@@ -569,7 +569,7 @@ def parse_args(args=None):
 
 if __name__ == "__main__":
 
-  root_path = _ROOT_DIR
+  root_path = _ROOT_DIR.parent
   args = parse_args()
 
   MSE_loss = nn.MSELoss()
