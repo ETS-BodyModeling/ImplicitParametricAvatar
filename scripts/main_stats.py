@@ -95,9 +95,9 @@ def calculate_iou(predicted_mask, target_mask):
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser(description="Render SMPLX models with textures")
-    parser.add_argument('--output_path', type=str, default='output', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path', type=str, default='output/recons', help='Output directory for reconstructed mesh')
     parser.add_argument('--data_path', type=str, default='data', help='Directory for target data')
-    parser.add_argument('--output_path_render', type=str, default='output_render', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path_render', type=str, default='output/output_render', help='Output directory for reconstructed mesh')
     return parser.parse_args(args)
 
 if __name__ == "__main__":
@@ -136,6 +136,8 @@ if __name__ == "__main__":
         IOU_list=[]
         for (dirpath, dirnames, filenames) in walk(out_path_target):
             for dir in filenames:
+                # if dir != "female-29.png":
+                #     continue
                 print(dir,'***********')
                 im_path_target=os.path.join(out_path_target,dir)
                 im_path_target_silh=os.path.join(out_path_target_silh,dir)

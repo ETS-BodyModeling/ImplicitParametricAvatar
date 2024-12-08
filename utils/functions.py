@@ -23,7 +23,8 @@ def init_params(model, device):
       (1, 21*3), dtype=torch.float32)
   body_pose[0,3*15+2]=-1
   body_pose[0,3*16+2]=1
-  body_pose= torch.tensor(body_pose, dtype=torch.float32, device=device, requires_grad=True)
+  # body_pose= torch.tensor(body_pose, dtype=torch.float32, device=device, requires_grad=True)
+  body_pose = body_pose.clone().detach().to(device).requires_grad_(True)
   # body_pose.requires_grad_=True
 
   global_orient=torch.zeros((1,3), dtype=torch.float32, device=device, requires_grad=True)
@@ -43,8 +44,10 @@ def init_params(model, device):
 
   right_hand_pose = -left_hand_pose
 
-  right_hand_pose= torch.tensor(right_hand_pose.detach(), dtype=torch.float32, device=device, requires_grad=True)
-  left_hand_pose= torch.tensor(left_hand_pose.detach(), dtype=torch.float32, device=device, requires_grad=True)
+  # right_hand_pose= torch.tensor(right_hand_pose.detach(), dtype=torch.float32, device=device, requires_grad=True)
+  right_hand_pose = right_hand_pose.clone().detach().to(device).requires_grad_(True)
+  left_hand_pose = left_hand_pose.clone().detach().to(device).requires_grad_(True)
+  # left_hand_pose= torch.tensor(left_hand_pose.detach(), dtype=torch.float32, device=device, requires_grad=True)
   # left_hand_pose.requires_grad=True
   # right_hand_pose.requires_grad=True
   return betas,body_pose,expression,global_orient,s1_params,rx,ry,rz,D,left_hand_pose.to(device),right_hand_pose.to(device)
@@ -96,8 +99,8 @@ def extract_texture_pifu(pifu,smpl_clothed,path_uv,path_save,uv_size=512):
   im_flip.save(path_save+'/texture.png')
   
 
-def centroid_mesh(mesh):
-    x = torch.tensor(mesh)
+def centroid_mesh(x):
+    # x = torch.tensor(mesh)
     return torch.stack([((x[:, 0].max() + x[:, 0].min()) / 2), ((x[:, 1].max() + x[:, 1].min()) / 2),
                         ((x[:, 2].max() + x[:, 2].min()) / 2)])
 

@@ -45,9 +45,9 @@ else:
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser(description="Render SMPLX models with textures")
-    parser.add_argument('--output_path', type=str, default='output', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path', type=str, default='output/recons', help='Output directory for reconstructed mesh')
     parser.add_argument('--data_path', type=str, default='data', help='Directory for target data')
-    parser.add_argument('--output_path_render', type=str, default='output_render', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path_render', type=str, default='output/output_render', help='Output directory for reconstructed mesh')
     return parser.parse_args(args)
 
 

@@ -5,7 +5,7 @@ import logging
 import sys
 import time
 from dgl.geometry import farthest_point_sampler
-import smplx
+from submodules.smplx import smplx
 import torch.nn as nn
 from pytorch3d.loss import (
     chamfer_distance,
@@ -19,7 +19,7 @@ import argparse
 from utils.functions import *
 from utils.util_texture import inpaint_interpolation, apply_lama
 from tqdm import tqdm
-
+# from deepface import DeepFace
 if torch.cuda.is_available():
     device = torch.device("cuda:0")
     torch.cuda.set_device(device)
@@ -248,9 +248,9 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer4.zero_grad()
 
       output = model(betas=betas, expression=expression,body_pose=body_pose,transl=t_params,global_orient=global_orient,left_hand_pose=left_hand_pose,right_hand_pose =right_hand_pose ,
-                return_verts=True)
-      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()+D).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
-      smpl_mesh_reg=Meshes(verts=[(output.vertices[0,idx_regularisation].squeeze()+D[idx_regularisation].squeeze()).to(device)], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
+                return_verts=True, D=D)
+      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
+      smpl_mesh_reg=Meshes(verts=[(output.vertices[0,idx_regularisation].squeeze()).to(device)], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
 
       loss_P2S = knn_loss2(smpl_mesh,PC1)
       if step_D_L_laplacien:
@@ -284,7 +284,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer4.step()
       scheduler4.step(loss_P2S)
 
-  mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()+D).detach().cpu().numpy(),faces=model.faces)
+  mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(),faces=model.faces)
   mesh_f.export(path+ '/smplx_after_deformation_step_1.obj')
 
   patience = 10  # Number of epochs to wait for loss improvement
@@ -299,9 +299,9 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer5.zero_grad()
 
       output = model(betas=betas, expression=expression,body_pose=body_pose,transl=t_params,global_orient=global_orient,left_hand_pose=left_hand_pose,right_hand_pose =right_hand_pose ,
-                return_verts=True)
-      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()+D).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
-      smpl_mesh_reg=Meshes(verts=[(output.vertices[0,idx_regularisation].squeeze()+D[idx_regularisation].squeeze()).to(device)], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
+                return_verts=True, D=D)
+      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
+      smpl_mesh_reg=Meshes(verts=[output.vertices[0,idx_regularisation].squeeze()], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
       
       if step_D_L_P2S:
         loss_P2S = knn_loss2(smpl_mesh,PC1)
@@ -353,9 +353,9 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer5.zero_grad()
 
       output = model(betas=betas, expression=expression,body_pose=body_pose,transl=t_params,global_orient=global_orient,left_hand_pose=left_hand_pose,right_hand_pose =right_hand_pose ,
-                return_verts=True)
-      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()+D).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
-      smpl_mesh_reg=Meshes(verts=[(output.vertices[0,idx_regularisation].squeeze()+D[idx_regularisation].squeeze()).to(device)], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
+                return_verts=True, D=D)
+      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
+      smpl_mesh_reg=Meshes(verts=[output.vertices[0,idx_regularisation].squeeze()], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
       
       if step_D_L_P2S:
         loss_P2S = knn_loss2(smpl_mesh,PC1)
@@ -406,7 +406,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       if epochs_without_improvement == patience:
           print("Early stopping. No improvement in loss.")
           break
-  mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()+D).detach().cpu().numpy(),faces=model.faces)
+  mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(),faces=model.faces)
   mesh_f.export(path+ '/smpl_final_clothes.obj')
   return mesh_f
 
@@ -559,8 +559,140 @@ def main(abs_path, out_path, root_path, model_folder,
           if use_lama:
             path_mask=os.path.join(root_path, args.data_path, "combined_mask.png")
             path_lama = os.path.join(path, "texture_lama2.png")
-            apply_lama(path_texture_out,path_mask, path_lama) 
+            apply_lama(path_texture_out,path_mask, path_lama)
 
+
+def main_sample(abs_path, out_path, root_path, model_folder,
+         model_type='smplx',
+         ext='npz',
+         gender='neutral',
+         num_betas=70,
+         num_expression_coeffs=10,
+         use_face_contour=False):
+
+        model = smplx.create(model_folder, model_type=model_type,
+                             gender=gender, use_face_contour=use_face_contour,
+                             num_betas=num_betas,
+                             num_expression_coeffs=num_expression_coeffs, create_left_hand_pose=True,
+                             create_right_hand_pose=True, use_pca=False,
+                             ext=ext).to(device)
+        betas, body_pose, expression, global_orient, s1_params, rx, ry, rz, D, left_hand_pose, right_hand_pose = init_params(
+          model, device)
+
+        output = model(betas=betas, expression=expression, body_pose=body_pose,
+                       return_verts=True)
+
+        pifu_mesh = trimesh.load_mesh(abs_path + names)
+        pifu_mesh.export(out_path + '/pifu.obj')
+
+        verts, faces, aux = load_obj(abs_path + names)
+
+        pose_prior = torch.tensor(np.expand_dims(np.load(abs_path + names[:-4] + '.npy'), axis=0),
+                                  dtype=torch.float).to(device)
+
+        idx = farthest_point_sampler(verts.unsqueeze(0), output.vertices.shape[1])
+        pointcloud = torch.tensor(np.expand_dims(verts[idx.squeeze()], axis=0), dtype=torch.float).to(device)
+        PC = Pointclouds(points=list(pointcloud)).to(device)
+
+        idx = farthest_point_sampler(verts.unsqueeze(0), output.vertices.shape[1] * 2)
+        pointcloud1 = torch.tensor(np.expand_dims(verts[idx.squeeze()], axis=0), dtype=torch.float).to(device)
+        PC1 = Pointclouds(points=list(pointcloud1)).to(device)
+
+        downsample_mesh1 = trimesh.Trimesh(vertices=None, faces=None)
+        downsample_mesh1.vertices = torch.squeeze(pointcloud).cpu().detach().numpy()
+        downsample_mesh1.export(path + '/downsample_pifu.ply')
+
+        downsample_mesh1.vertices = torch.squeeze(pointcloud1).cpu().detach().numpy()
+        downsample_mesh1.export(path + '/downsample_pifu_2.ply')
+
+        save_obj(path + '/smpl_initial.obj', output.vertices.detach().squeeze(),
+                 (torch.tensor(model.faces.astype(np.int32), dtype=torch.int64)))
+
+        t_params = -recalage_centroide(pointcloud.squeeze(), output.vertices.detach().squeeze()).reshape((1, 3))
+        t_params.requires_grad = True
+        t_params = t_params.to(device)
+
+        optimizer0 = torch.optim.Adam([t_params, global_orient, betas], lr=1e-3)
+        optimizer = torch.optim.Adam([t_params, body_pose, global_orient], lr=0.0001)
+        optimizer1 = torch.optim.Adam([t_params, body_pose, global_orient, betas, expression], lr=0.01)
+        optimizer2 = torch.optim.Adam(
+          [t_params, body_pose, global_orient, betas, expression, left_hand_pose, right_hand_pose], lr=0.005)
+        optimizer3 = torch.optim.Adam([body_pose, betas], lr=0.0001)
+        optimizer4 = torch.optim.Adam([D], lr=5 * 1e-5)
+        optimizer5 = torch.optim.Adam([D], lr=1e-4)
+
+        # Define the learning rate scheduler
+        scheduler0 = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer0, mode='min', factor=0.5, patience=5,
+                                                                verbose=True)
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3,
+                                                               verbose=True)
+        scheduler1 = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer1, mode='min', factor=0.5, patience=5,
+                                                                verbose=True)
+        scheduler2 = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer2, mode='min', factor=0.5, patience=5,
+                                                                verbose=True)
+        scheduler3 = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer3, mode='min', factor=0.5, patience=5,
+                                                                verbose=True)
+        scheduler4 = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer4, mode='min', factor=0.5, patience=5,
+                                                                verbose=True)
+        scheduler5 = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer5, mode='min', factor=0.5, patience=5,
+                                                                verbose=True)
+
+        # Start the timer
+        start_time = time.time()
+        logging.info(f"recalage_rigide")
+        recalage_rigide(model, optimizer0, scheduler0, betas, expression, body_pose, global_orient, left_hand_pose,
+                        right_hand_pose, t_params, pose_prior, pointcloud, body_mapping, out_path)
+        if step_pose:
+          logging.info(f"pose_optimization")
+          pose_optimization(step_pose_L_sc, model, optimizer, scheduler, betas, expression, body_pose, global_orient,
+                            left_hand_pose, right_hand_pose, t_params, pose_prior, pointcloud, body_mapping, out_path)
+        logging.info(f"shape_optimization")
+        shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, model, optimizer1, optimizer2,
+                           scheduler1, scheduler2, betas, expression, body_pose, global_orient, left_hand_pose,
+                           right_hand_pose, t_params, pose_prior, pointcloud, PC, PC1, body_mapping, id_hand_twist,
+                           id_hand_coller, body_mapping1, out_path)
+        logging.info(f"deformation_clothes")
+        mesh_f = deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_D_L_id, step_D_L_id_face,
+                                     model, optimizer4, optimizer5, scheduler4, scheduler5, PC1, D, betas, expression,
+                                     body_pose, global_orient, left_hand_pose, right_hand_pose, t_params, pose_prior,
+                                     pointcloud, body_mapping, id_hand_twist, id_hand_coller, body_mapping1, out_path)
+
+        # End the timer
+        end_time = time.time()
+        # Calculate the duration
+        duration = end_time - start_time
+        print(f"The process of optimization took {duration} seconds.")
+        logging.info(f"The process of optimization took {duration} seconds.")
+
+        start_time = time.time()
+        extract_texture_pifu(pifu_mesh, mesh_f, os.path.join(root_path, args.data_path, 'smplx_uv.obj'), out_path,
+                             uv_size=1024)
+        # t_params,global_orient,left_hand_pose,right_hand_pose
+        data = {'gender': gender, 'scale': s1_params, 'beta': betas, 'theta': body_pose, 'expression': expression,
+                'D': D, 't_params': t_params, 'global_orient': global_orient, 'left_hand_pose': left_hand_pose,
+                'right_hand_pose': right_hand_pose}
+        np.save(out_path + '/' + names[:-4] + '_data.npy', data)
+
+        end_time = time.time()
+        # Calculate the duration
+        duration = end_time - start_time
+        print(f"The process of texture extraction took {duration} seconds.")
+        logging.info(f"The process of texture extraction took {duration} seconds.")
+
+        start_time = time.time()
+        path_texture = os.path.join(out_path, "texture.png")
+        path_texture_out = os.path.join(out_path, "texture_interpolation.png")
+        interpolated_image, mask_finale = inpaint_interpolation(path_texture, path_texture_out)
+        end_time = time.time()
+        # Calculate the duration
+        duration = end_time - start_time
+        print(f"The process of texture completion took {duration} seconds.")
+        logging.info(f"The process of texture completion took {duration} seconds.")
+
+        if use_lama:
+          path_mask = os.path.join(root_path, args.data_path, "combined_mask.png")
+          path_lama = os.path.join(out_path, "texture_lama2.png")
+          apply_lama(path_texture_out, path_mask, path_lama)
 def parse_args(args=None):
     parser = argparse.ArgumentParser(description="Render SMPLX models with textures")
     parser.add_argument('--output_path', type=str, default='output/recons', help='Output directory for reconstructed mesh')
@@ -595,7 +727,9 @@ if __name__ == "__main__":
   faces_regularisation=read_dictionary['faces']
 
 
-  abs_path = os.path.join(root_path, args.data_path, 'recon/')
+  # abs_path = os.path.join(root_path, args.data_path, 'recon/')
+  abs_path = os.path.join(root_path, "output", 'output-pifu/')
+
   abs_path_target = os.path.join(root_path, args.data_path, 'target')
   abs_path_target_mesh = os.path.join(root_path, args.data_path, 'target_mesh')
   out_path_recons = os.path.join(root_path, args.output_path)
@@ -614,7 +748,15 @@ if __name__ == "__main__":
   model_type = 'smplx'
   plot_joints = True
   use_face_contour = False
-  gender = 'female'
+  # objs = DeepFace.analyze(
+  #   img_path="female-1-casual_Moment.jpg",
+  #   actions=['gender'],
+  #   # actions = ['age', 'gender', 'race', 'emotion'],
+  # )
+  # deep_gender = objs[0]["dominant_gender"]
+  # gender = "female" if deep_gender == "Woman" else "male"
+  gender = "female"
+
   ext = 'npz'
   plotting_module = 'pyrender'
   num_betas =300
@@ -623,12 +765,44 @@ if __name__ == "__main__":
   sample_expression = True
 
   # reconstruction //////////////////////////////////////////////////////////////////////////////////////
+  step_pose = True
+  step_pose_L_sc = True
 
-  main(abs_path, out_path_recons, root_path, model_folder, model_type, ext=ext,
-        gender=gender, plot_joints=plot_joints,
-        num_betas=num_betas,
-        num_expression_coeffs=num_expression_coeffs,
-        sample_shape=sample_shape,
-        sample_expression=sample_expression,
-        plotting_module=plotting_module,
-        use_face_contour=use_face_contour)
+  # step_shape = True
+  step_shape_L_chamfer = True
+  step_shape_L_P2S = True
+  step_shape_L_sc = True
+  # step-D
+  step_D_L_laplacien = True
+  step_D_L_normal = True
+  step_D_L_id = True
+  step_D_L_id_face = True
+  step_D_L_P2S = True
+
+  use_lama = False
+
+  # i=0
+
+  for (dirpath, dirnames, filenames) in walk(abs_path):
+
+    for names in filenames:
+      if names.endswith(".obj"):
+        print(names, gender)
+        logging.info(f"Processing file: {names}")
+        path = os.path.join(out_path_recons, names[:-4])
+        if not os.path.exists(path):
+          os.mkdir(path)
+        main_sample(abs_path, path, root_path, model_folder,model_type, ext=ext, gender=gender,
+                    num_betas=num_betas,
+                    num_expression_coeffs=num_expression_coeffs,
+                    use_face_contour=use_face_contour)
+
+
+  # main(abs_path, out_path_recons, root_path, model_folder, model_type, ext=ext,
+  #       gender=gender, plot_joints=plot_joints,
+  #       num_betas=num_betas,
+  #       num_expression_coeffs=num_expression_coeffs,
+  #       sample_shape=sample_shape,
+  #       sample_expression=sample_expression,
+  #       plotting_module=plotting_module,
+  #       use_face_contour=use_face_contour)

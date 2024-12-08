@@ -1,2 +1,7 @@
-*
+# Ignore everything
+/*
+
+# Don't ignore the demo folder and its contents
+!/demo/
+!/demo/**
 !.gitignore

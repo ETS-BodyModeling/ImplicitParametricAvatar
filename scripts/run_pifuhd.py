@@ -10,7 +10,7 @@ def main(input_path, output_path):
     # Define the paths
     # input_path = "input_path"
     # output_path = "output_path"
-    recon_path = f"{output_path}/pifuhd_final"
+    # recon_path = f"{output_path}/pifuhd_final"
 
     # Command 1: Run the simple_test script
     cmd1 = [
@@ -25,8 +25,9 @@ def main(input_path, output_path):
     # Command 2: Run the clean_mesh script
     cmd2 = [
         "python",
-        "apps/clean_mesh.py",
-        "-f", recon_path
+        "-m",
+        "submodules.pifuhd.apps.clean_mesh",
+        "-f", output_path
     ]
 
     # Execute the commands

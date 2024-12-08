@@ -1,7 +1,5 @@
 wheel
-
 fvcore==0.1.5.post20221221
-
 chumpy
 einops
 ffmpeg
@@ -16,17 +14,17 @@ pyright
 ruff
 scikit-image
 scipy
-shapely==2.0.2
+#shapely==2.0.2
 tqdm
 trimesh==3.23.5
-
 -f https://download.pytorch.org/whl/cu118
 torch==2.0.1
 torchvision
 dgl==2.0.0
-smplx
+#smplx
 onnxruntime
-
+rembg
+rtree
 
 # On macOS:
 #   - Ensure you have installed the XCode Command Line Tools:
