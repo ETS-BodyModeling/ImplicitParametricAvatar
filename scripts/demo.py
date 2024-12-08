@@ -12,7 +12,8 @@ if __name__ == "__main__":
 
     # run pifuhd
     args = parse_args()
-    output_path_pifu = os.path.join(args.output_path,     command = [
+    output_path_pifu = os.path.join(args.output_path, "output-pifu")
+    command = [
         "python", "-m", "scripts.run_pifuhd",
         "--input_path", args.input_path,
         "--output_path", output_path_pifu,
@@ -32,8 +33,7 @@ if __name__ == "__main__":
     result = subprocess.run(command, capture_output=True, text=True, check=False)
     print("Return code:", result.returncode)
     print("Output:", result.stdout)
-    print("Error:", result.stderr)"output-pifu")
-
+    print("Error:", result.stderr)
 
     # run animation code
     command = [

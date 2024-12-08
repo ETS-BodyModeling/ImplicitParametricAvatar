@@ -21,6 +21,8 @@ In this work, we present a novel approach for three-dimensional estimation of hu
 - [Overview](#overview)
 - [Features](#features)
 - [Installation](#installation)
+- [Quick testing](#quick_testing)
+- [Testing](#testing)
 - [Acknowledgements](#acknowledgements)
 
 
@@ -39,10 +41,13 @@ Here is an example of an animation:
 
 ## Installation
 
+**For Linux**:
+
 ### Prerequisites
 
-- Python 3.x
+- Python 3.10
 - PyTorch (version compatible with your system's CUDA version)
+- Pytorch3d (version compatible with your system's CUDA version)
 - Other dependencies are listed in `requirements.txt`
 
 ### Setup Instructions
@@ -51,14 +56,37 @@ Here is an example of an animation:
    ```bash
    git clone https://github.com/ETS-BodyModeling/ImplicitParametricAvatar.git
    cd ImplicitParametricAvatar
+   ```
 2. ```bash
    python3 -m venv .venv
    source .venv/bin/activate
    pip install -U pip
+   ```
 3. ```bash
    pip install -r requirements.txt
+   ```
 
-4. Download Preprocessed X-Avatar Data
+4. Setup submodules , run this command:
+```bash
+   git submodule update --init --recursive
+   ```
+
+
+5. Download Pifuhd model
+   ```bash
+   sh ./submodules/pifuhd/scripts/download_trained_model.sh
+   ```
+
+6. Download the required .npz files (for both male and female models) from the official SMPL-X website, place the contents into a folder named `models/smplx` in the project root directory
+
+## Quick_testing
+To quickly run the demo, use the following command:
+   ```bash
+   python -m scripts.demo
+   ```
+This will execute the demo from /data/demo and output the result in the output/ directory. The pipeline loads a sample image and its corresponding pose from OpenPose, runs the reconstruction process, and displays the generated output.
+## testing
+1. Download Preprocessed X-Avatar Data
 
 To use the X-Avatar preprocessed data required for this project:
 
@@ -68,25 +96,24 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
 
  Extract the downloaded ZIP file (if applicable) to your local directory. For instance, place the contents into a folder named `data` in the project root directory:
 
- 5.  Download the required .npz files (for both male and female models) from the official SMPL-X website, place the contents into a folder named `models/smplx` in the project root directory
 
- 6. To run the reconstruction and texture extraction pipeline, execute the following command
+2. To run the reconstruction and texture extraction pipeline, execute the following command
 
    ```bash
    python main_optim.py 
    ```
 
- 7. To render a frontal view of the reconstructed 3D model, use the following script:
+3. To render a frontal view of the reconstructed 3D model, use the following script:
 
    ```bash
    python main_render.py 
    ```
 
-8. To generate statistics about the input images and reconstructed meshes, use the following command:
+4. To generate statistics about the input images and reconstructed meshes, use the following command:
    ```bash  
    python main_stats.py  
    ```
-9. To Generate Animations from Reconstructed Meshes
+5. To Generate Animations from Reconstructed Meshes
 
    ```bash  
    python main_animation.py  
