@@ -77,7 +77,7 @@ Here is an example of an animation:
    sh ./submodules/pifuhd/scripts/download_trained_model.sh
    ```
 
-6. Download the required .npz files (for both male and female models) from the official [SMPL-X website](https://smpl-x.is.tue.mpg.de/), place the contents into a folder named `models/smplx` in the project root directory
+6. Download the required .npz files (for both male SMPLX_MALE.npz and female models SMPLX_FEMALE.npz) from the official [SMPL-X website](https://smpl-x.is.tue.mpg.de/), place the contents into a folder named `models/smplx` in the project root directory
 
 ## Quick_testing
 To quickly run the demo, use the following command:
