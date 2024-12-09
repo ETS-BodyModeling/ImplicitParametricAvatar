@@ -77,14 +77,15 @@ Here is an example of an animation:
    sh ./submodules/pifuhd/scripts/download_trained_model.sh
    ```
 
-6. Download the required .npz files (for both male and female models) from the official SMPL-X website, place the contents into a folder named `models/smplx` in the project root directory
+6. Download the required .npz files (for both male and female models) from the official [SMPL-X website](https://smpl-x.is.tue.mpg.de/), place the contents into a folder named `models/smplx` in the project root directory
 
 ## Quick_testing
 To quickly run the demo, use the following command:
    ```bash
    python -m scripts.demo
    ```
-This will execute the demo from /data/demo and output the result in the output/ directory. The pipeline loads a sample image and its corresponding pose from OpenPose, runs the reconstruction process, and displays the generated output.
+The pipeline loads a sample image and its corresponding pose from OpenPose (in /data/demo), runs the reconstruction process, and displays the generated output result (in the output/ directory).
+
 ## testing
 1. Download Preprocessed X-Avatar Data
 
