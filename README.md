@@ -101,23 +101,23 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
 2. To run the reconstruction and texture extraction pipeline, execute the following command
 
    ```bash
-   python main_optim.py 
+   python -m scripts.main_optim
    ```
 
 3. To render a frontal view of the reconstructed 3D model, use the following script:
 
    ```bash
-   python main_render.py 
+   python -m scripts.main_render
    ```
 
 4. To generate statistics about the input images and reconstructed meshes, use the following command:
    ```bash  
-   python main_stats.py  
+   python -m scripts.main_stats 
    ```
 5. To Generate Animations from Reconstructed Meshes
 
    ```bash  
-   python main_animation.py  
+   python -m scripts.main_animation 
    ```
 This script applies motion sequences from the AMASS dataset to the reconstructed meshes, creating dynamic animations.
 
