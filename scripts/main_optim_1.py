@@ -716,9 +716,9 @@ if __name__ == "__main__":
   read_dictionary = np.load(os.path.join(root_path, args.data_path, 'sub_target.npy'), allow_pickle='TRUE').item()
   idx_D=read_dictionary['idx']
 
-  # read_dictionary = np.load(os.path.join(root_path, args.data_path, 'feet_penal.npy'), allow_pickle='TRUE').item()
-  # idx_feet=read_dictionary['idx']
-  # idx_D = np.concatenate((idx_D, idx_feet))
+  read_dictionary = np.load(os.path.join(root_path, args.data_path, 'feet_penal.npy'), allow_pickle='TRUE').item()
+  idx_feet=read_dictionary['idx']
+  idx_D = np.concatenate((idx_D, idx_feet))
 
   read_dictionary = np.load(os.path.join(root_path, args.data_path, 'not_penelized.npy'),allow_pickle='TRUE').item()
   idx_not_penelized=read_dictionary['idx']
