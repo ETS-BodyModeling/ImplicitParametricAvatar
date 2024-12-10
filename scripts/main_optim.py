@@ -248,9 +248,9 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer4.zero_grad()
 
       output = model(betas=betas, expression=expression,body_pose=body_pose,transl=t_params,global_orient=global_orient,left_hand_pose=left_hand_pose,right_hand_pose =right_hand_pose ,
-                return_verts=True)
-      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()+D).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
-      smpl_mesh_reg=Meshes(verts=[(output.vertices[0,idx_regularisation].squeeze()+D[idx_regularisation].squeeze()).to(device)], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
+                return_verts=True, D=D)
+      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
+      smpl_mesh_reg=Meshes(verts=[output.vertices[0,idx_regularisation].squeeze()], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
 
       loss_P2S = knn_loss2(smpl_mesh,PC1)
       if step_D_L_laplacien:
@@ -284,7 +284,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer4.step()
       scheduler4.step(loss_P2S)
 
-  mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()+D).detach().cpu().numpy(),faces=model.faces)
+  mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(),faces=model.faces)
   mesh_f.export(path+ '/smplx_after_deformation_step_1.obj')
 
   patience = 10  # Number of epochs to wait for loss improvement
@@ -299,9 +299,9 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer5.zero_grad()
 
       output = model(betas=betas, expression=expression,body_pose=body_pose,transl=t_params,global_orient=global_orient,left_hand_pose=left_hand_pose,right_hand_pose =right_hand_pose ,
-                return_verts=True)
-      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()+D).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
-      smpl_mesh_reg=Meshes(verts=[(output.vertices[0,idx_regularisation].squeeze()+D[idx_regularisation].squeeze()).to(device)], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
+                return_verts=True, D=D)
+      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
+      smpl_mesh_reg=Meshes(verts=[output.vertices[0,idx_regularisation].squeeze()], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
       
       if step_D_L_P2S:
         loss_P2S = knn_loss2(smpl_mesh,PC1)
@@ -353,9 +353,9 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer5.zero_grad()
 
       output = model(betas=betas, expression=expression,body_pose=body_pose,transl=t_params,global_orient=global_orient,left_hand_pose=left_hand_pose,right_hand_pose =right_hand_pose ,
-                return_verts=True)
-      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()+D).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
-      smpl_mesh_reg=Meshes(verts=[(output.vertices[0,idx_regularisation].squeeze()+D[idx_regularisation].squeeze()).to(device)], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
+                return_verts=True, D=D)
+      smpl_mesh=Meshes(verts=[(output.vertices.squeeze()).to(device)], faces=[(torch.tensor(model.faces.astype(np.float64),dtype=torch.int32)).to(device)])
+      smpl_mesh_reg=Meshes(verts=[output.vertices[0,idx_regularisation].squeeze()], faces=[(torch.tensor(faces_regularisation,dtype=torch.int32)).to(device)])
       
       if step_D_L_P2S:
         loss_P2S = knn_loss2(smpl_mesh,PC1)
@@ -406,7 +406,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       if epochs_without_improvement == patience:
           print("Early stopping. No improvement in loss.")
           break
-  mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()+D).detach().cpu().numpy(),faces=model.faces)
+  mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(),faces=model.faces)
   mesh_f.export(path+ '/smpl_final_clothes.obj')
   return mesh_f
 
