@@ -11,6 +11,7 @@ def parse_args(args=None):
 if __name__ == "__main__":
 
     # run pifuhd
+    print("********running pifuhd ----------- check output/output-pifu *******")
     args = parse_args()
     output_path_pifu = os.path.join(args.output_path, "output-pifu")
     command = [
@@ -25,6 +26,7 @@ if __name__ == "__main__":
     print("Error:", result.stderr)
 
     # run reconstruction code
+    print("********running reconstruction  ----------- check output/recons  *******")
 
     command = [
         "python", "-m", "scripts.main_optim_1",
@@ -36,6 +38,7 @@ if __name__ == "__main__":
     print("Error:", result.stderr)
 
     # run animation code
+    print("********running animation  ----------- check output/output-animation *******")
     command = [
         "python", "-m", "scripts.main_animation",
 
