@@ -101,7 +101,7 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
 2. To run the reconstruction and texture extraction pipeline, execute the following command
 
    ```bash
-   python -m scripts.main_optim
+   python -m scripts.main_optim  --input_path data/recon
    ```
 
 3. To render a frontal view of the reconstructed 3D model, use the following script:

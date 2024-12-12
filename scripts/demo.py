@@ -29,7 +29,7 @@ if __name__ == "__main__":
     print("********running reconstruction  ----------- check output/recons  *******")
 
     command = [
-        "python", "-m", "scripts.main_optim_1",
+        "python", "-m", "scripts.main_optim",
 
     ]
     result = subprocess.run(command, capture_output=True, text=True, check=False)
