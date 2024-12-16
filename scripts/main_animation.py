@@ -75,6 +75,7 @@ mesh=load_obj(os.path.join(root_path, args.data_path, 'smplx_uv.obj'))
 
 for (dirpath, dirnames,filenames) in walk(out_path_recons):
     for i,dir in enumerate(dirnames) :
+        print(dir)
 
         path_texture=os.path.join(out_path_recons, dir, "texture_interpolation.png")
         data_path=os.path.join(out_path_recons, dir, dir+"_data.npy")
