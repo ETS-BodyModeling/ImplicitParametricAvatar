@@ -47,7 +47,7 @@ class SMPLXSimp:
         """
         return self.indices
     def apply_indices(self, vertices):
-        return vertices[self.indices]
+        return vertices[:, self.indices].squeeze(2)
 
 # Example usage
 # faces_file = "path_to_faces.txt"
