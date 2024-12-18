@@ -84,7 +84,7 @@ To quickly run the demo, use the following command:
    ```bash
    python -m scripts.demo
    ```
-The pipeline loads a sample image and its corresponding pose from OpenPose (in /data/demo), runs the reconstruction process, and displays the generated output result (in the output/ directory).
+The pipeline loads a sample image and its corresponding pose from OpenPose (in /data/demo), runs pifuhd, the reconstruction process and generate animation. Displays the generated output result (in the output/ directory).
 
 ## testing
 1. Download Preprocessed X-Avatar Data
@@ -110,7 +110,7 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
    python -m scripts.main_render
    ```
 
-4. To generate statistics about the input images and reconstructed meshes, use the following command:
+4. To generate statistics about the input images and reconstructed meshes, download meshes obj target from X-Avatar website and use the following command:
    ```bash  
    python -m scripts.main_stats 
    ```
