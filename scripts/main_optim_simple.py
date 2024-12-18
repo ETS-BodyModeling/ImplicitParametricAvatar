@@ -69,7 +69,6 @@ def recalage_rigide(model, optimizer0, scheduler0, betas, expression, body_pose,
                 mesh_temp = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(),
                                             faces=model.faces)
                 mesh_temp.export(path + '/smplx_after_box.obj')
-
             # loss=torch.norm(betas[0,1:])/5+MSE_loss(output.joints.to(device)[:,body_mapping][:,[0,15,16,21,24]],pose_prior[:,[0,15,16,21,24]]) + MSE_loss(output.joints.to(device)[:,body_mapping][:,[22,23,24]].mean(1),pose_prior[:,[22,23,24]].mean(1))+ MSE_loss(output.joints.to(device)[:,body_mapping][:,[19,20,21]].mean(1),pose_prior[:,[19,20,22]].mean(1))
             loss = chamfer_distance(smplxsimp.apply_indices(output.vertices.to(device)), pointcloud)[0] + MSE_loss(
                 output.joints.to(device)[:, body_mapping][:,
@@ -82,7 +81,6 @@ def recalage_rigide(model, optimizer0, scheduler0, betas, expression, body_pose,
                 output.joints.to(device)[:, body_mapping][:, [19, 20, 21]].mean(1), pose_prior[:, [19, 20, 21]].mean(1))
             # print(i, loss)
             # Update tqdm bar
-            exit()
             pbar.set_postfix({"Loss": f"{loss:.4f}"})
             pbar.update(1)
             loss.backward()
@@ -159,11 +157,12 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
                            global_orient=global_orient, left_hand_pose=left_hand_pose, right_hand_pose=right_hand_pose,
                            return_verts=True)
 
-            smpl_mesh = Meshes(verts=[output.vertices.squeeze().to(device)],
-                               faces=[(torch.tensor(model.faces.astype(np.float64), dtype=torch.int32)).to(device)])
+            smpl_mesh = Meshes(verts=[smplxsimp.apply_indices(output.vertices.to(device)).squeeze()],
+                               faces=[(torch.tensor(smplxsimp.get_faces().astype(np.float64), dtype=torch.int32)).to(
+                                   device)])
 
             if step_shape_L_chamfer:
-                loss_chamfer = chamfer_distance(output.vertices.to(device), pointcloud)[0]
+                loss_chamfer = chamfer_distance(smplxsimp.apply_indices(output.vertices.to(device)), pointcloud)[0]
             else:
                 loss_chamfer = 0.0
             loss = loss_chamfer + MSE_loss(output.joints.to(device)[:, body_mapping][:,
@@ -208,8 +207,9 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
                            global_orient=global_orient, left_hand_pose=left_hand_pose, right_hand_pose=right_hand_pose,
                            return_verts=True)
 
-            smpl_mesh = Meshes(verts=[output.vertices.squeeze().to(device)],
-                               faces=[(torch.tensor(model.faces.astype(np.float64), dtype=torch.int32)).to(device)])
+            smpl_mesh = Meshes(verts=[smplxsimp.apply_indices(output.vertices.to(device)).squeeze()],
+                               faces=[(torch.tensor(smplxsimp.get_faces().astype(np.float64), dtype=torch.int32)).to(
+                                   device)])
             if step_shape_L_P2S:
                 loss_P2S = knn_loss1(smpl_mesh, PC)
             else:
@@ -224,7 +224,7 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
                 hand_penal = 0.0
 
             if step_shape_L_chamfer:
-                loss_chamfer = 10 * chamfer_distance(output.vertices.to(device), pointcloud)[0]
+                loss_chamfer = 10 * chamfer_distance(smplxsimp.apply_indices(output.vertices.to(device)), pointcloud)[0]
             else:
                 loss_chamfer = 0.0
 
@@ -265,8 +265,9 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
                            global_orient=global_orient, left_hand_pose=left_hand_pose, right_hand_pose=right_hand_pose,
                            return_verts=True)
 
-            smpl_mesh = Meshes(verts=[output.vertices.squeeze().to(device)],
-                               faces=[(torch.tensor(model.faces.astype(np.float64), dtype=torch.int32)).to(device)])
+            smpl_mesh = Meshes(verts=[smplxsimp.apply_indices(output.vertices.to(device)).squeeze()],
+                               faces=[(torch.tensor(smplxsimp.get_faces().astype(np.float64), dtype=torch.int32)).to(
+                                   device)])
             if step_shape_L_P2S:
                 loss_P2S = knn_loss1(smpl_mesh, PC1)
             else:
@@ -313,10 +314,11 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
             output = model(betas=betas, expression=expression, body_pose=body_pose, transl=t_params,
                            global_orient=global_orient, left_hand_pose=left_hand_pose, right_hand_pose=right_hand_pose,
                            return_verts=True, D=D)
-            smpl_mesh = Meshes(verts=[(output.vertices.squeeze()).to(device)],
-                               faces=[(torch.tensor(model.faces.astype(np.float64), dtype=torch.int32)).to(device)])
-            smpl_mesh_reg = Meshes(verts=[(output.vertices[0, idx_regularisation].squeeze()).to(device)],
-                                   faces=[(torch.tensor(faces_regularisation, dtype=torch.int32)).to(device)])
+            smpl_mesh = Meshes(verts=[smplxsimp.apply_indices(output.vertices.to(device)).squeeze()],
+                               faces=[(torch.tensor(smplxsimp.get_faces().astype(np.float64), dtype=torch.int32)).to(
+                                   device)])
+            # smpl_mesh_reg = Meshes(verts=[(output.vertices[0, idx_regularisation].squeeze()).to(device)],
+            #                        faces=[(torch.tensor(faces_regularisation, dtype=torch.int32)).to(device)])
 
             loss_P2S = knn_loss2(smpl_mesh, PC1)
             if step_D_L_laplacien:
@@ -325,7 +327,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
                 loss_laplacian = 0.0
 
             if step_D_L_normal:
-                loss_normal = mesh_normal_consistency(smpl_mesh_reg)
+                loss_normal = mesh_normal_consistency(smpl_mesh)
             else:
                 loss_normal = 0.0
 
@@ -367,10 +369,11 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
             output = model(betas=betas, expression=expression, body_pose=body_pose, transl=t_params,
                            global_orient=global_orient, left_hand_pose=left_hand_pose, right_hand_pose=right_hand_pose,
                            return_verts=True, D=D)
-            smpl_mesh = Meshes(verts=[(output.vertices.squeeze()).to(device)],
-                               faces=[(torch.tensor(model.faces.astype(np.float64), dtype=torch.int32)).to(device)])
-            smpl_mesh_reg = Meshes(verts=[output.vertices[0, idx_regularisation].squeeze()],
-                                   faces=[(torch.tensor(faces_regularisation, dtype=torch.int32)).to(device)])
+            smpl_mesh = Meshes(verts=[smplxsimp.apply_indices(output.vertices.to(device)).squeeze()],
+                               faces=[(torch.tensor(smplxsimp.get_faces().astype(np.float64), dtype=torch.int32)).to(
+                                   device)])
+            # smpl_mesh_reg = Meshes(verts=[output.vertices[0, idx_regularisation].squeeze()],
+            #                        faces=[(torch.tensor(faces_regularisation, dtype=torch.int32)).to(device)])
 
             if step_D_L_P2S:
                 loss_P2S = knn_loss2(smpl_mesh, PC1)
@@ -383,7 +386,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
                 loss_laplacian = 0.0
 
             if step_D_L_normal:
-                loss_normal = mesh_normal_consistency(smpl_mesh_reg)
+                loss_normal = mesh_normal_consistency(smpl_mesh)
             else:
                 loss_normal = 0.0
 
@@ -418,7 +421,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
     mesh_f.export(path + '/smplx_after_deformation_step_2.obj')
     best_loss = float('inf')
     optimizer5 = torch.optim.Adam([D], lr=1e-5)
-    total_iterations = 500
+    total_iterations = 2000
     with tqdm(total=total_iterations, desc="deformation vector step 3", unit="iter") as pbar:
         for i in range(total_iterations):
             optimizer5.zero_grad()
@@ -426,10 +429,11 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
             output = model(betas=betas, expression=expression, body_pose=body_pose, transl=t_params,
                            global_orient=global_orient, left_hand_pose=left_hand_pose, right_hand_pose=right_hand_pose,
                            return_verts=True, D=D)
-            smpl_mesh = Meshes(verts=[(output.vertices.squeeze()).to(device)],
-                               faces=[(torch.tensor(model.faces.astype(np.float64), dtype=torch.int32)).to(device)])
-            smpl_mesh_reg = Meshes(verts=[output.vertices[0, idx_regularisation].squeeze()],
-                                   faces=[(torch.tensor(faces_regularisation, dtype=torch.int32)).to(device)])
+            smpl_mesh = Meshes(verts=[smplxsimp.apply_indices(output.vertices.to(device)).squeeze()],
+                               faces=[(torch.tensor(smplxsimp.get_faces().astype(np.float64), dtype=torch.int32)).to(
+                                   device)])
+            # smpl_mesh_reg = Meshes(verts=[output.vertices[0, idx_regularisation].squeeze()],
+            #                        faces=[(torch.tensor(faces_regularisation, dtype=torch.int32)).to(device)])
 
             if step_D_L_P2S:
                 # loss_P2S = 0.0
@@ -443,14 +447,14 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
                 loss_laplacian = 0.0
 
             if step_D_L_normal:
-                loss_normal = mesh_normal_consistency(smpl_mesh_reg)
+                loss_normal = mesh_normal_consistency(smpl_mesh)
             else:
                 loss_normal = 0.0
 
-            if step_D_L_id:
-                loss_id = torch.norm(torch.norm(D, dim=1))
-            else:
-                loss_id = 0.0
+            # if step_D_L_id:
+            #     loss_id = torch.norm(torch.norm(D, dim=1))
+            # else:
+            loss_id = 0.0
 
             if step_D_L_id_face:
                 loss_id_face = 1e6 * torch.norm(torch.norm(D[idx_D], dim=1))
@@ -460,7 +464,13 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
             #   loss_P2S = knn_loss4(smpl_mesh,PC1)
             # else:
             #   loss_P2S = 0.0
-            loss = 2.5 * loss_P2S + 1e4 * loss_laplacian + 1e4 * loss_normal + loss_id + loss_id_face
+
+            if i < 1000:
+                loss = 2.5 * loss_P2S + 2 * 1e6 * loss_laplacian + 1e5 * loss_normal + loss_id + loss_id_face
+            else:
+                loss = 2.5 * loss_P2S + 1e6 * loss_laplacian + 1e4 * loss_normal + loss_id + loss_id_face
+
+            # print(2.5 * loss_P2S, 1e6 * loss_laplacian, 1e4 * loss_normal, loss_id, loss_id_face)
 
             pbar.set_postfix({"Loss": f"{loss_P2S.item():.4f}"})
             pbar.update(1)
@@ -479,8 +489,14 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
             # if epochs_without_improvement == patience:
             #     print("Early stopping. No improvement in loss.")
             #     break
+
+    mesh_f = trimesh.Trimesh(vertices=smplxsimp.apply_indices(output.vertices).detach().cpu().numpy().squeeze(),
+                             faces=smplxsimp.get_faces())
+    mesh_f.export(path + '/smpl_final_clothes_simple.obj')
+
     mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(), faces=model.faces)
     mesh_f.export(path + '/smpl_final_clothes.obj')
+
     return mesh_f
 
 
@@ -504,7 +520,7 @@ def main(abs_path, out_path, root_path, model_folder,
     step_shape_L_sc = True
     # step-D
     step_D_L_laplacien = True
-    step_D_L_normal = True
+    step_D_L_normal = False
     step_D_L_id = True
     step_D_L_id_face = True
     step_D_L_P2S = True
@@ -673,10 +689,10 @@ def main_sample(abs_path, out_path, root_path, model_folder,
     output = model(betas=betas, expression=expression, body_pose=body_pose,
                    return_verts=True)
 
-    pifu_mesh = trimesh.load_mesh( os.path.join(abs_path, names))
+    pifu_mesh = trimesh.load_mesh(os.path.join(abs_path, names))
     pifu_mesh.export(out_path + '/pifu.obj')
 
-    verts, faces, aux = load_obj( os.path.join(abs_path, names))
+    verts, faces, aux = load_obj(os.path.join(abs_path, names))
 
     pose_prior = torch.tensor(np.expand_dims(np.load(os.path.join(abs_path, names[:-4] + '.npy')), axis=0),
                               dtype=torch.float).to(device)
@@ -800,8 +816,6 @@ def parse_args(args=None):
 
 if __name__ == "__main__":
 
-
-
     root_path = _ROOT_DIR.parent
     args = parse_args()
 
@@ -819,7 +833,8 @@ if __name__ == "__main__":
     read_dictionary = np.load(os.path.join(root_path, args.data_path, 'feet_penal.npy'), allow_pickle='TRUE').item()
     idx_feet = read_dictionary['idx']
     # idx_feet_complementaire = sorted(set(range(10475)) - set(idx_feet.flatten().tolist()))
-    idx_feet_complementaire = sorted(set(range(10475)))
+    # idx_feet_complementaire = sorted(set(range(10475)))
+    idx_feet_complementaire = sorted(set(range(10436)))
     idx_feet_complementaire = torch.tensor(idx_feet_complementaire, dtype=torch.long)
 
     read_dictionary = np.load(os.path.join(root_path, args.data_path, 'not_penelized.npy'), allow_pickle='TRUE').item()
