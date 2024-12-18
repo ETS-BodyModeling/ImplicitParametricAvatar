@@ -465,10 +465,10 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
             # else:
             #   loss_P2S = 0.0
 
-            if i < 1000:
-                loss = 2.5 * loss_P2S + 2 * 1e6 * loss_laplacian + 1e5 * loss_normal + loss_id + loss_id_face
-            else:
-                loss = 2.5 * loss_P2S + 1e6 * loss_laplacian + 1e4 * loss_normal + loss_id + loss_id_face
+            # if  i < 1500:
+            loss = 2.5 * loss_P2S + 2 * 1e6 * loss_laplacian + 1e5 * loss_normal + loss_id + loss_id_face
+            # else:
+            #     loss = 2.5 * loss_P2S +  1e6 * loss_laplacian + 1e4 * loss_normal + loss_id + loss_id_face
 
             # print(2.5 * loss_P2S, 1e6 * loss_laplacian, 1e4 * loss_normal, loss_id, loss_id_face)
 
@@ -829,6 +829,8 @@ if __name__ == "__main__":
 
     read_dictionary = np.load(os.path.join(root_path, args.data_path, 'sub_target.npy'), allow_pickle='TRUE').item()
     idx_D = read_dictionary['idx']
+    value_to_check = 5813
+    idx_D = idx_D[idx_D != value_to_check]
 
     read_dictionary = np.load(os.path.join(root_path, args.data_path, 'feet_penal.npy'), allow_pickle='TRUE').item()
     idx_feet = read_dictionary['idx']
