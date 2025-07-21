@@ -1,0 +1,10 @@
+# Ignore everything
+/openpose
+/recon
+/target
+/target_mesh
+# Don't ignore the demo folder and its contents
+#!/demo/
+#!/demo/**
+#!/**
+!.gitignore
