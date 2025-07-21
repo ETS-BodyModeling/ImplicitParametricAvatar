@@ -1,0 +1,6 @@
+[submodule "submodules/pifuhd"]
+	path = submodules/pifuhd
+	url = https://github.com/ETS-BodyModeling/pifuhd.git
+[submodule "submodules/smplx"]
+	path = submodules/smplx
+	url = https://github.com/ETS-BodyModeling/smplx.git

@@ -28,7 +28,7 @@ if __name__ == "__main__":
     print("Error:", result.stderr)
 
     end = time.time()
-    with open("/home/fares/ImplicitParametricAvatar/time_log.txt", "w") as log_file:
+    with open("time_log.txt", "w") as log_file:
         log_file.write(f"Time taken for PIFuHD: {end - start}\n")
     print("Time taken for PIFuHD:", end - start)
 

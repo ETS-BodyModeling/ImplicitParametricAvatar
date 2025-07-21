@@ -1,0 +1,13 @@
+/output
+/output1
+/output_render
+/output_animation
+/.venv
+.idea/
+#/checkpoints
+# Ignore Python cache directories
+__pycache__/
+*.pyc
+*.pyo
+*.pyc
+*DS_Store
