@@ -54,8 +54,8 @@ Here is an example of an animation:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ETS-BodyModeling/ImplicitParametricAvatar.git
-   cd ImplicitParametricAvatar
+   git clone https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined.git
+   cd ImplicitParametricAvatarRefined
    ```
 2. ```bash
    python3 -m venv .venv
@@ -79,14 +79,14 @@ Here is an example of an animation:
 
 6. Download the required .npz files (for both male SMPLX_MALE.npz and female models SMPLX_FEMALE.npz) from the official [SMPL-X website](https://smpl-x.is.tue.mpg.de/), place the contents into a folder named `models/smplx` in the project root directory
 
-## Quick_testing
+<!-- ## Quick_testing
 To quickly run the demo, use the following command:
    ```bash
-   python -m scripts.demo
+   python -m scripts.demo_simple
    ```
 The pipeline loads a sample image and its corresponding pose from OpenPose (in /data/demo), runs pifuhd, the reconstruction process and generate animation. Displays the generated output result (in the output/ directory).
 
-## testing
+<!-- ## testing -->
 1. Download Preprocessed X-Avatar Data
 
 To use the X-Avatar preprocessed data required for this project:
@@ -98,28 +98,19 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
  Extract the downloaded ZIP file (if applicable) to your local directory. For instance, place the contents into a folder named `data` in the project root directory:
 
 
-2. To run the reconstruction and texture extraction pipeline, execute the following command
+2. To run the simple smplx reconstruction pipeline and texture extraction, the rendering and animation execute the following command
 
    ```bash
-   python -m scripts.main_optim  --input_path data/recon
+   python -m scripts.run_pipeline_simple
    ```
 
-3. To render a frontal view of the reconstructed 3D model, use the following script:
+3.  To run the simple smplx subdivided reconstruction pipeline and texture extraction, the rendering and animation execute the following command
 
    ```bash
-   python -m scripts.main_render
+   python -m scripts.run_pipeline_simple_sub
    ```
 
-4. To generate statistics about the input images and reconstructed meshes, download meshes obj target from X-Avatar website and use the following command:
-   ```bash  
-   python -m scripts.main_stats 
-   ```
-5. To Generate Animations from Reconstructed Meshes
-
-   ```bash  
-   python -m scripts.main_animation 
-   ```
-This script applies motion sequences from the AMASS dataset to the reconstructed meshes, creating dynamic animations.
+This script applies motion sequences from the AMASS dataset to the reconstructed meshes, creating dynamic animations. -->
 
 ## Acknowledgements
 This project builds upon several works in the fields of 3D human modeling and computer vision. We are grateful for the contributions of the following projects and tools:
