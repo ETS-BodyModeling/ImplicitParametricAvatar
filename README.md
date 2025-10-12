@@ -53,13 +53,14 @@ This project provides a robust solution for 3D reconstruction and avatar generat
 ### Prerequisites
 
 - Python 3.10
-- PyTorch (version compatible with your system's CUDA version)
+- PyTorch torch==2.0.1
 - Pytorch3d (version compatible with your system's CUDA version)
 - Other dependencies are listed in `requirements.txt`
 - Operating System: Amazon Linux 2023.6.20241111
 - Kernel: Linux 6.1.115-126.197.amzn2023.x86_64
 - GPU Model: NVIDIA L4
 - CUDA Version: 12.6
+
 
 ### Setup Instructions
 
