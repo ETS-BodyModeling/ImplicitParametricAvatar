@@ -507,8 +507,8 @@ def main_sample(abs_path, out_path, root_path, model_folder,
                 num_betas=70,
                 num_expression_coeffs=10,
                 use_face_contour=False):
-    mesh_simple = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple.obj', process=False, maintain_order=True)
-    mesh_simple_sub = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple_sub.obj', process=False, maintain_order=True)
+    
+    
 
     model = smplx.create(model_folder, model_type=model_type,
                          gender=gender, use_face_contour=use_face_contour,
@@ -653,9 +653,6 @@ def main_sample(abs_path, out_path, root_path, model_folder,
     with open("time_log.txt", "a") as log_file:
         log_file.write(f"deformation_clothes: {duration} seconds\n")
 
-    # mesh_simple = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple.obj', process=False, maintain_order=True)
-    # mesh_f_simple = trimesh.Trimesh(vertices=mesh_f.vertices, faces=mesh_simple.faces, process=False, maintain_order=True)
-    # mesh_f_simple.export(out_path + '/smpl_final_clothes_simple.obj')
 
     start_time = time.time()
     extract_texture_pifu(pifu_mesh, mesh_f, os.path.join(root_path, args.data_path, 'smplx_uv_simple_sub.obj'), path,
@@ -750,6 +747,8 @@ if __name__ == "__main__":
     faces_regularisation = read_dictionary['faces']
 
     smplxsimp = SMPLXSimp(os.path.join(root_path, args.data_path, 'idx_wo_toes.npy'))
+    mesh_simple = trimesh.load_mesh(os.path.join(root_path, args.data_path, 'smplx_uv_simple.obj'), process=False, maintain_order=True)
+    mesh_simple_sub = trimesh.load_mesh(os.path.join(root_path, args.data_path, 'smplx_uv_simple_sub.obj'), process=False, maintain_order=True)
 
     # abs_path = os.path.join(root_path, args.data_path, 'recon/')
     abs_path = os.path.join(root_path, args.input_path)

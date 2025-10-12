@@ -828,7 +828,7 @@ def main_sample(abs_path, out_path, root_path, model_folder,
 
     start_time = time.time()
 
-    mesh_simple = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple.obj', process=False, maintain_order=True)
+    # mesh_simple = trimesh.load_mesh('/data/smplx_uv_simple.obj', process=False, maintain_order=True)
     mesh_f_simple = trimesh.Trimesh(vertices=mesh_f.vertices, faces=mesh_simple.faces, process=False, maintain_order=True)
     mesh_f_simple.export(out_path + '/smpl_final_clothes_simple.obj')
     extract_texture_pifu(pifu_mesh, mesh_f_simple, os.path.join(root_path, args.data_path, 'smplx_uv_simple.obj'), path,
@@ -909,6 +909,7 @@ if __name__ == "__main__":
     faces_regularisation = read_dictionary['faces']
 
     smplxsimp = SMPLXSimp(os.path.join(root_path, args.data_path, 'idx_wo_toes.npy'))
+    mesh_simple = trimesh.load_mesh(os.path.join(root_path, args.data_path, 'smplx_uv_simple.obj'), process=False, maintain_order=True)
 
     # abs_path = os.path.join(root_path, args.data_path, 'recon/')
     abs_path = os.path.join(root_path, args.input_path)

@@ -5,7 +5,7 @@ import argparse
 def parse_args(args=None):
     parser = argparse.ArgumentParser(description="run PifuHD")
     parser.add_argument('--output_path', type=str, default='output', help='Output directory for reconstructed mesh')
-    parser.add_argument('--input_path', type=str, default='data/shark', help='Directory for target data')
+    parser.add_argument('--input_path', type=str, default='data/demo', help='Directory for target data')
     return parser.parse_args(args)
 
 if __name__ == "__main__":
