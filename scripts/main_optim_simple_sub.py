@@ -549,8 +549,8 @@ def main_sample(abs_path, out_path, root_path, model_folder,
     downsample_mesh1.vertices = torch.squeeze(pointcloud1).cpu().detach().numpy()
     # downsample_mesh1.export(path + '/downsample_pifu_2.ply')
 
-    save_obj(path + '/smpl_initial.obj', output.vertices.detach().squeeze(),
-             (torch.tensor(model.faces.astype(np.int32), dtype=torch.int64)))
+    # save_obj(path + '/smpl_initial.obj', output.vertices.detach().squeeze(),
+    #          (torch.tensor(model.faces.astype(np.int32), dtype=torch.int64)))
 
     t_params = -recalage_centroide(pointcloud.squeeze(), output.vertices.detach().squeeze()).reshape((1, 3))
     t_params.requires_grad = True

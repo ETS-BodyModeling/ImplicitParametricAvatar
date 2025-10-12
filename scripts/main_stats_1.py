@@ -204,10 +204,13 @@ if __name__ == "__main__":
                 psnr_list.append(psnr_score)
 
 
-            if not os.path.exists(os.path.join( save_path, 'stats')):
-                # Create the directory if it does not exist
-                os.mkdir(os.path.join( save_path, 'stats'))
-            csv_file = os.path.join( os.path.join( save_path, 'stats'), type_select+'_data.csv')
+
+            # Create the 'stats' directory in the parent of save_path (parent of --output_path_render)
+            stats_parent = os.path.dirname(save_path)
+            stats_dir = os.path.join(stats_parent, 'stats')
+            if not os.path.exists(stats_dir):
+                os.mkdir(stats_dir)
+            csv_file = os.path.join(stats_dir, type_select+'_data.csv')
             print(csv_file)
 
             IOU_list=np.array(IOU_list)
@@ -239,9 +242,9 @@ if __name__ == "__main__":
 
     # 3d evaluation  //////////////////////////////////////////////////////////////////////////////////////
 
-    if not os.path.exists(os.path.join( save_path, 'stats_3d')):
+    if not os.path.exists(os.path.join( stats_parent, 'stats_3d')):
         # Create the directory if it does not exist
-        os.mkdir(os.path.join( save_path, 'stats_3d'))
+        os.mkdir(os.path.join( stats_parent, 'stats_3d'))
     loss_chamfer=[]
     loss_normal=[]
     loss_iou3d=[]
@@ -260,7 +263,7 @@ if __name__ == "__main__":
             mesh_t_torch=torch.tensor(mesh_t.vertices, dtype=torch.float32, requires_grad=True, device=device)
 
 
-            mesh_f = trimesh.load_mesh(out_path_recons +'/result_'+gender+'-'+dir+'_512/smpl_final_clothes.obj')
+            mesh_f = trimesh.load_mesh(out_path_recons +'/result_'+gender+'-'+dir+'_512/smpl_final_clothes_simple.obj')
             mesh_f.vertices[:,1]=mesh_f.vertices[:,1]-mesh_f.vertices[:,1].min(0)
 
             mesh_f_torch=torch.tensor(mesh_f.vertices, dtype=torch.float32, requires_grad=True, device=device)
@@ -313,7 +316,7 @@ if __name__ == "__main__":
     print(loss_normal,'****',loss_chamfer)
 
 
-    csv_file = os.path.join( os.path.join( save_path, 'stats_3d'),'3d_data.csv')
+    csv_file = os.path.join( os.path.join( stats_parent, 'stats_3d'),'3d_data.csv')
     print(csv_file)
 
     data = zip(loss_normal,loss_chamfer )
