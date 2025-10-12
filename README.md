@@ -1,3 +1,4 @@
+
 # Parametric Model Fittingfor Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human
 
 <!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DF2qVcJJMTN7scutey1qfUF_LeYsf7EW?usp=sharing) [![ACM Publication](https://img.shields.io/badge/ACM-MIG%252024-blue)](https://dl.acm.org/doi/10.1145/3677388.3696328) 
@@ -13,9 +14,14 @@ Fares Mallek ([ORCID](http://orcid.org/0009-0001-1221-4431)), Carlos Vázquez ([
 ![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/animation_1.gif)
 
 
-In this work, we present a novel approach for three-dimensional estimation of human avatars, leveraging the Skinned Multi-Person Linear (SMPL-X) parametric body model. Our methodology integrates the strengths of:
-1. A Pixel-aligned Implicit Function (PIFuHD) model for mesh generation.
-2. A multi-step optimization process to infer accurate SMPL-X parameters and deformation vector for clothing.
+This project is a continuance of the paper "Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human" ([original repository](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar.git)).
+
+In this work, we introduces an easily animatable new SMPL-X mesh topology with shoe-like feet, enabling more realistic and flexible character animation. Key features include:
+
+- **New SMPL-X Mesh Topology**: Designed for easy animation, the mesh features shoe-like feet for improved realism and articulation.
+- **Subdivision for Detail**: The SMPL-X mesh is subdivided to enhance the representation of fine details, especially when computing deformation vectors.
+
+These improvements make the model more suitable for high-quality animation and rendering tasks.
 
 ## Table of Contents
 - [Overview](#overview)
