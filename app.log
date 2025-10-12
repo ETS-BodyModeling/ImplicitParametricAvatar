@@ -1,0 +1,6 @@
+2025-10-12 22:12:26,019 - INFO - Processing file: result_female-19_512.obj
+2025-10-12 22:12:42,490 - INFO - recalage_rigide
+2025-10-12 22:12:44,310 - INFO - The process of recalage rigide took 1.8207402229309082 seconds.
+2025-10-12 22:12:44,311 - INFO - pose_optimization
+2025-10-12 22:12:47,894 - INFO - The process of pose optimization took 3.583374500274658 seconds.
+2025-10-12 22:12:47,894 - INFO - shape_optimization
