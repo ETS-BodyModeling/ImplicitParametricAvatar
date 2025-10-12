@@ -81,7 +81,8 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
             
 
 
-            path_texture=os.path.join(out_path_recons, dir, "texture_interpolation_simple_lama.png")
+            # path_texture=os.path.join(out_path_recons, dir, "texture_interpolation_simple_lama.png")
+            path_texture=os.path.join(out_path_recons, dir, "texture_interpolation_simple.png")
             data_path=os.path.join(out_path_recons, dir, dir+"_data.npy")
 
             out_path_rgb = os.path.join(save_path, dir)
@@ -131,7 +132,7 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
                                 num_expression_coeffs=num_expression_coeffs,create_left_hand_pose=True,create_right_hand_pose=True,use_pca=False,
                                 ext=ext).to(device)
 
-            with np.load(os.path.join(root_path, 'data', 'motions', 'mosh', 'D5_-_Random_Stuff_2_stageii.npz'), allow_pickle=True) as data:
+            with np.load(os.path.join(root_path, 'data', 'misc_dancing_hiphop_stageii.npz'), allow_pickle=True) as data:
             # with np.load(os.path.join(root_path, 'data', 'motions', 'TCDHands', 'counting_1_stageii.npz'), allow_pickle=True) as data:
                 if 'mocap_frame_rate' in data:
                     fps = data['mocap_frame_rate']
@@ -158,20 +159,10 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
                 for kkk in range(num_data):
                     output = model(global_orient=global_orient[kkk],betas=betas, expression=express,body_pose=body_pose[kkk],left_hand_pose=left_hand_pose[kkk],right_hand_pose=right_hand_pose[kkk],return_verts=True,D=D)
                     # mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy().squeeze(), faces=model.faces, process=False, maintain_order=True)
-                    mesh_simple = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple.obj', process=False, maintain_order=True)
+                    # mesh_simple = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple.obj', process=False, maintain_order=True)
+                    mesh_simple = trimesh.load_mesh(os.path.join(root_path, 'data', 'smplx_uv_simple.obj'), process=False, maintain_order=True)
                     mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy().squeeze(), faces=mesh_simple.faces, process=False, maintain_order=True)
                     verts=torch.tensor(mesh_f.vertices)
-
-                #     theta1 = torch.tensor([math.pi/2])
-                #     R_y = torch.tensor([
-                # [0, 1, 0],
-                # [torch.cos(theta1), 0, torch.sin(theta1)],
-                # [-torch.sin(theta1), 0, torch.cos(theta1)]
-                
-                
-                # ])
-
-                #     verts = torch.matmul(verts.float().to(device), R_y.float().to(device))
 
 
                     mesh1=Meshes(verts=[verts.to(torch.float32).to(device)], faces=[(torch.tensor(mesh_simple.faces,dtype=torch.int64)).to(device)], textures=texture)
@@ -233,7 +224,8 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
                     images = renderer(mesh1)
                     # images = torch.rot90(images, k=1, dims=(1, 2)) 
                     save_image(images[0,:,:,:3].permute((2,0,1)),out_path_rgb+'/' + '{:04}.png'.format(kkk))
-
+                    if kkk>510:
+                        break
                 # Set the path to the directory containing the images
 
                 # Get a list of all the image file names in the directory

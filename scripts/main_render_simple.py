@@ -45,9 +45,9 @@ else:
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser(description="Render SMPLX models with textures")
-    parser.add_argument('--output_path', type=str, default='output1/recons', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path', type=str, default='output/recons', help='Output directory for reconstructed mesh')
     parser.add_argument('--data_path', type=str, default='data', help='Directory for target data')
-    parser.add_argument('--output_path_render', type=str, default='output1/output_render', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path_render', type=str, default='output/output_render', help='Output directory for reconstructed mesh')
     return parser.parse_args(args)
 
 
@@ -140,7 +140,8 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
             return_verts=True, D=D)
     # mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()+D).detach().cpu().numpy().squeeze(), faces=model.faces)
     # verts=torch.tensor(mesh_f.vertices)
-    mesh_simple = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple.obj', process=False, maintain_order=True)
+    # mesh_simple = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple.obj', process=False, maintain_order=True)
+    mesh_simple = trimesh.load_mesh(os.path.join(root_path, args.data_path, 'smplx_uv_simple.obj'), process=False, maintain_order=True)
     mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy().squeeze(), faces=mesh_simple.faces, process=False, maintain_order=True)
     mesh_f.export(out_path_recons+'/'+dir+'/'+'test.obj')
     verts=torch.tensor(mesh_f.vertices)
@@ -148,8 +149,8 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
     # mesh1=Meshes(verts=[verts.to(torch.float32).to(device)], faces=[(torch.tensor(model.faces.astype(np.int32),dtype=torch.int64)).to(device)], textures=texture)
 
     for val in range(1):
-
-        out_path_val = os.path.join(save_path, f"rgb_{val}")
+        out_path_val = os.path.join(save_path, "rgb")
+        # out_path_val = os.path.join(save_path, f"rgb_{val}")
         if not os.path.exists(out_path_val):
             # If it doesn't exist, create it
             os.mkdir(out_path_val)

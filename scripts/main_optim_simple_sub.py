@@ -703,10 +703,10 @@ def main_sample(abs_path, out_path, root_path, model_folder,
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser(description="Render SMPLX models with textures")
-    parser.add_argument('--output_path', type=str, default='output/recons',
+    parser.add_argument('--output_path', type=str, default='output_sub/recons',
                         help='Output directory for reconstructed mesh')
     parser.add_argument('--data_path', type=str, default='data', help='Directory for target data')
-    parser.add_argument('--input_path', type=str, default='output/output-pifu', help='Directory for input data')
+    parser.add_argument('--input_path', type=str, default='output_sub/output-pifu', help='Directory for input data')
     return parser.parse_args(args)
 
 
@@ -758,11 +758,11 @@ if __name__ == "__main__":
     out_path_recons = os.path.join(root_path, args.output_path)
 
     if not os.path.exists(os.path.join(root_path, args.output_path)):
-        # If it doesn't exist, create it
-        os.mkdir(os.path.join(root_path, args.output_path))
+        # If it doesn't exist, create it (including parent directories)
+        os.makedirs(os.path.join(root_path, args.output_path), exist_ok=True)
     if not os.path.exists(out_path_recons):
-        # If it doesn't exist, create it
-        os.mkdir(out_path_recons)
+        # If it doesn't exist, create it (including parent directories)
+        os.makedirs(out_path_recons, exist_ok=True)
 
     # ***********************************************************************************
 
@@ -829,7 +829,7 @@ if __name__ == "__main__":
                             num_betas=num_betas,
                             num_expression_coeffs=num_expression_coeffs,
                             use_face_contour=use_face_contour)
-                break
+
             
 
     # main(abs_path, out_path_recons, root_path, model_folder, model_type, ext=ext,

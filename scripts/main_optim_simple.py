@@ -920,10 +920,10 @@ if __name__ == "__main__":
 
     if not os.path.exists(os.path.join(root_path, args.output_path)):
         # If it doesn't exist, create it
-        os.mkdir(os.path.join(root_path, args.output_path))
+        os.makedirs(os.path.join(root_path, args.output_path), exist_ok=True)
     if not os.path.exists(out_path_recons):
         # If it doesn't exist, create it
-        os.mkdir(out_path_recons)
+        os.mkdir(out_path_recons, exist_ok=True)
 
     # ***********************************************************************************
 

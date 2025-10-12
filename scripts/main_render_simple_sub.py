@@ -45,9 +45,9 @@ else:
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser(description="Render SMPLX models with textures")
-    parser.add_argument('--output_path', type=str, default='output/recons', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path', type=str, default='output_sub/recons', help='Output directory for reconstructed mesh')
     parser.add_argument('--data_path', type=str, default='data', help='Directory for target data')
-    parser.add_argument('--output_path_render', type=str, default='output/output_render', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path_render', type=str, default='output_sub/output_render', help='Output directory for reconstructed mesh')
     return parser.parse_args(args)
 
 
@@ -85,13 +85,11 @@ if __name__ == "__main__":
       os.mkdir(out_path_normals)
 
 mesh=load_obj(os.path.join(root_path, args.data_path, 'smplx_uv_simple_sub.obj'))
-mesh_simple = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple.obj', process=False, maintain_order=True)
+mesh_simple = trimesh.load_mesh(os.path.join(root_path, args.data_path, 'smplx_uv_simple.obj') , process=False, maintain_order=True)
 
 for (dirpath, dirnames,filenames) in walk(out_path_recons):
   for i,dir in enumerate(dirnames) :
-    print(dir)
-    if dir[-6:-4]!='19':
-        continue
+
     path_texture=os.path.join(out_path_recons, dir, "texture_interpolation_simple.png")
     data_path=os.path.join(out_path_recons, dir, dir+"_data.npy")
 
@@ -143,7 +141,7 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
             return_verts=True, D=D, faces_sub=mesh_simple.faces)
     # mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()+D).detach().cpu().numpy().squeeze(), faces=model.faces)
     # verts=torch.tensor(mesh_f.vertices)
-    mesh_simple_sub = trimesh.load_mesh('/home/fares/ImplicitParametricAvatar/data/smplx_uv_simple_sub.obj', process=False, maintain_order=True)
+    mesh_simple_sub = trimesh.load_mesh(os.path.join(root_path, args.data_path, 'smplx_uv_simple_sub.obj'), process=False, maintain_order=True)
     mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy().squeeze(), faces=mesh_simple_sub.faces, process=False, maintain_order=True)
     mesh_f.export(out_path_recons+'/'+dir+'/'+'test.obj')
     verts=torch.tensor(mesh_f.vertices)
@@ -152,7 +150,7 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
 
     for val in range(1):
 
-        out_path_val = os.path.join(save_path, f"rgb_{val}")
+        out_path_val = os.path.join(save_path, f"rgb")
         if not os.path.exists(out_path_val):
             # If it doesn't exist, create it
             os.mkdir(out_path_val)

@@ -1,12 +1,12 @@
-# Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human
+# Parametric Model Fittingfor Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DF2qVcJJMTN7scutey1qfUF_LeYsf7EW?usp=sharing) [![ACM Publication](https://img.shields.io/badge/ACM-MIG%252024-blue)](https://dl.acm.org/doi/10.1145/3677388.3696328) 
-[![View in Browser](https://img.shields.io/badge/View-HTML%20Version-orange)](https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/MIG24/9/a6c2ee09-7446-11ef-ada9-16bb50361d1f/OUT/mig24-9.html)
+<!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DF2qVcJJMTN7scutey1qfUF_LeYsf7EW?usp=sharing) [![ACM Publication](https://img.shields.io/badge/ACM-MIG%252024-blue)](https://dl.acm.org/doi/10.1145/3677388.3696328) 
+[![View in Browser](https://img.shields.io/badge/View-HTML%20Version-orange)](https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/MIG24/9/a6c2ee09-7446-11ef-ada9-16bb50361d1f/OUT/mig24-9.html) -->
 
 ## Publication
 
 This project is associated with the research paper:
-Fares Mallek ([ORCID](http://orcid.org/0009-0001-1221-4431)), Carlos Vázquez ([ORCID](http://orcid.org/0000-0003-2161-8507)), and Eric Paquette ([ORCID](http://orcid.org/0000-0001-9236-647X)). 2024. **Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human**. In Proceedings of the 17th ACM SIGGRAPH Conference on Motion, Interaction, and Games (MIG '24). Association for Computing Machinery, New York, NY, USA, Article 20, 1–11. https://doi.org/10.1145/3677388.3696328
+Fares Mallek ([ORCID](http://orcid.org/0009-0001-1221-4431)), Carlos Vázquez ([ORCID](http://orcid.org/0000-0003-2161-8507)), and Eric Paquette ([ORCID](http://orcid.org/0000-0001-9236-647X)). 2024. **Parametric Model Fittingfor Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human**. Accepted in Computers & Graphics
 
 ![Teaser Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/intro_fig.png)
 ![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/rotation.gif)
