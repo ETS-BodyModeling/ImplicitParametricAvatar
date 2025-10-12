@@ -19,17 +19,16 @@ This project is a continuance of the paper "Implicit and Parametric Avatar Pose 
 In this work, we introduces an easily animatable new SMPL-X mesh topology with shoe-like feet, enabling more realistic and flexible character animation. Key features include:
 
 - **New SMPL-X Mesh Topology**: Designed for easy animation, the mesh features shoe-like feet for improved realism and articulation.
+![Improvement1](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/feet_improvement.png)
 - **Subdivision for Detail**: The SMPL-X mesh is subdivided to enhance the representation of fine details, especially when computing deformation vectors.
 
 These improvements make the model more suitable for high-quality animation and rendering tasks.
-![Improvement Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/improvement.png)
+![Improvement2](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/improvement.png)
 
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
 - [Installation](#installation)
-- [Quick testing](#quick_testing)
-- [Testing](#testing)
 - [Acknowledgements](#acknowledgements)
 
 
