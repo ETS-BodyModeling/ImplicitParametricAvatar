@@ -8,9 +8,9 @@
 This project is associated with the research paper:
 Fares Mallek ([ORCID](http://orcid.org/0009-0001-1221-4431)), Carlos Vázquez ([ORCID](http://orcid.org/0000-0003-2161-8507)), and Eric Paquette ([ORCID](http://orcid.org/0000-0001-9236-647X)). 2024. **Parametric Model Fittingfor Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human**. Accepted in Computers & Graphics
 
-![Teaser Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/intro_fig.png)
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/rotation.gif)
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation_1.gif)
+![Teaser Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/intro_fig.png)
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/rotation.gif)
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/animation_1.gif)
 
 
 In this work, we present a novel approach for three-dimensional estimation of human avatars, leveraging the Skinned Multi-Person Linear (SMPL-X) parametric body model. Our methodology integrates the strengths of:
