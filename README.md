@@ -43,8 +43,8 @@ This project provides a robust solution for 3D reconstruction and avatar generat
 - **Clothing Geometry Refinement**: Per vertex deformation vectors to model tight and loose clothing geometries.  
 - **Texture Mapping**: A dedicated texture extraction and completion pipeline for detailed avatar representation.
 
-Here is an example of an animation:
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/animation.gif)
+<!-- Here is an example of an animation:
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/animation.gif) -->
 
 ## Installation
 
