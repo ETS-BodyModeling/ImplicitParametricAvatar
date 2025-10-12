@@ -22,6 +22,7 @@ In this work, we introduces an easily animatable new SMPL-X mesh topology with s
 - **Subdivision for Detail**: The SMPL-X mesh is subdivided to enhance the representation of fine details, especially when computing deformation vectors.
 
 These improvements make the model more suitable for high-quality animation and rendering tasks.
+![Improvement Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/improvement.png)
 
 ## Table of Contents
 - [Overview](#overview)
