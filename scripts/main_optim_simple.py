@@ -68,7 +68,7 @@ def recalage_rigide(model, optimizer0, scheduler0, betas, expression, body_pose,
             if i == 0:
                 mesh_temp = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(),
                                             faces=model.faces)
-                mesh_temp.export(path + '/smplx_after_box.obj')
+                # mesh_temp.export(path + '/smplx_after_box.obj')
             # loss=torch.norm(betas[0,1:])/5+MSE_loss(output.joints.to(device)[:,body_mapping][:,[0,15,16,21,24]],pose_prior[:,[0,15,16,21,24]]) + MSE_loss(output.joints.to(device)[:,body_mapping][:,[22,23,24]].mean(1),pose_prior[:,[22,23,24]].mean(1))+ MSE_loss(output.joints.to(device)[:,body_mapping][:,[19,20,21]].mean(1),pose_prior[:,[19,20,22]].mean(1))
             loss = chamfer_distance(smplxsimp.apply_indices(output.vertices.to(device)), pointcloud)[0] + MSE_loss(
                 output.joints.to(device)[:, body_mapping][:,
@@ -99,8 +99,8 @@ def recalage_rigide(model, optimizer0, scheduler0, betas, expression, body_pose,
                 print("Early stopping. No improvement in loss.")
                 break
 
-    mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_rigid.obj')
+    # mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
+    # mesh_f.export(path + '/smplx_after_rigid.obj')
 
 
 def pose_optimization(step_pose_L_sc, model, optimizer, scheduler, betas, expression, body_pose, global_orient,
@@ -137,8 +137,8 @@ def pose_optimization(step_pose_L_sc, model, optimizer, scheduler, betas, expres
 
             scheduler.step(loss)
 
-    mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_pose.obj')
+    # mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
+    # mesh_f.export(path + '/smplx_after_pose.obj')
 
 
 def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, model, optimizer1, optimizer2,
@@ -191,8 +191,8 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
             if epochs_without_improvement == patience:
                 print("Early stopping. No improvement in loss.")
                 break
-    mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_shape_s1.obj')
+    # mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
+    # mesh_f.export(path + '/smplx_after_shape_s1.obj')
 
     patience = 10  # Number of epochs to wait for loss improvement
     min_delta = 1  # Minimum change in loss to be considered as an improvement
@@ -253,8 +253,8 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
             if epochs_without_improvement == patience:
                 print("Early stopping. No improvement in loss.")
                 break
-    mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_shape_s2.obj')
+    # mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
+    # mesh_f.export(path + '/smplx_after_shape_s2.obj')
 
     total_iterations = 600
     with tqdm(total=total_iterations, desc="shape optim step 3", unit="iter") as pbar:
@@ -298,8 +298,8 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
             pbar.update(1)
             loss.backward()
             optimizer2.step()
-    mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_shape_s3.obj')
+    # mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
+    # mesh_f.export(path + '/smplx_after_shape_s3.obj')
 
 
 def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_D_L_id, step_D_L_id_face, model, optimizer4, optimizer5, scheduler4, scheduler5, PC1, PC_full, D, betas, expression, body_pose, global_orient, left_hand_pose, right_hand_pose, t_params, pose_prior, pointcloud, body_mapping, id_hand_twist, id_hand_coller, body_mapping1, path):
@@ -350,7 +350,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       scheduler4.step(loss_P2S)
 
   mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(),faces=model.faces)
-  mesh_f.export(path+ '/smplx_after_deformation_step_1.obj')
+  # mesh_f.export(path+ '/smplx_after_deformation_step_1.obj')
 
   patience = 10  # Number of epochs to wait for loss improvement
   min_delta = 0.01  # Minimum change in loss to be considered as an improvement
@@ -478,211 +478,9 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
           print("Early stopping. No improvement in loss.")
           break
   mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(),faces=model.faces)
-  mesh_f.export(path+ '/smpl_final_clothes.obj')
+  # mesh_f.export(path+ '/smpl_final_clothes.obj')
   return mesh_f
 
-
-
-# def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_D_L_id, step_D_L_id_face, model,
-#                         optimizer4, optimizer5, scheduler4, scheduler5, PC1, PC_full, D, betas, expression, body_pose,
-#                         global_orient, left_hand_pose, right_hand_pose, t_params, pose_prior, pointcloud, body_mapping,
-#                         id_hand_twist, id_hand_coller, body_mapping1, path):
-#     total_iterations = 200
-#     with tqdm(total=total_iterations, desc="deformation vector step 1", unit="iter") as pbar:
-#         for i in range(total_iterations):
-#             optimizer4.zero_grad()
-
-#             output = model(betas=betas, expression=expression, body_pose=body_pose, transl=t_params,
-#                            global_orient=global_orient, left_hand_pose=left_hand_pose, right_hand_pose=right_hand_pose,
-#                            return_verts=True, D=D)
-#             smpl_mesh = Meshes(verts=[smplxsimp.apply_indices(output.vertices.to(device)).squeeze()],
-#                                faces=[(torch.tensor(smplxsimp.get_faces().astype(np.float64), dtype=torch.int32)).to(
-#                                    device)])
-#             # smpl_mesh_reg = Meshes(verts=[(output.vertices[0, idx_regularisation].squeeze()).to(device)],
-#             #                        faces=[(torch.tensor(faces_regularisation, dtype=torch.int32)).to(device)])
-
-#             loss_P2S = knn_loss2(smpl_mesh, PC1)
-#             if step_D_L_laplacien:
-#                 loss_laplacian = mesh_laplacian_smoothing(smpl_mesh, method="uniform")
-#             else:
-#                 loss_laplacian = 0.0
-
-#             if step_D_L_normal:
-#                 loss_normal = mesh_normal_consistency(smpl_mesh)
-#             else:
-#                 loss_normal = 0.0
-
-#             if step_D_L_id:
-#                 loss_id = torch.norm(torch.norm(D, dim=1))
-#             else:
-#                 loss_id = 0.0
-#             if step_D_L_id_face:
-#                 loss_id_face = 1e6 * torch.norm(torch.norm(D[idx_D], dim=1))
-#             else:
-#                 loss_id_face = 0.0
-#             if step_D_L_P2S:
-#                 loss_P2S = knn_loss2(smpl_mesh, PC1)
-#             else:
-#                 loss_P2S = 0.0
-
-#             loss = 2 * loss_P2S + 1e4 * loss_laplacian + 1e4 * loss_normal + loss_id + loss_id_face
-
-#             pbar.set_postfix({"Loss": f"{loss.item():.4f}"})
-#             pbar.update(1)
-#             loss.backward()
-#             optimizer4.step()
-#             scheduler4.step(loss_P2S)
-
-#     mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(), faces=model.faces)
-#     mesh_f.export(path + '/smplx_after_deformation_step_1.obj')
-
-#     patience = 10  # Number of epochs to wait for loss improvement
-#     min_delta = 0.01  # Minimum change in loss to be considered as an improvement
-#     best_loss = float('inf')
-#     epochs_without_improvement = 0
-
-#     total_iterations = 1000
-#     with tqdm(total=total_iterations, desc="deformation vector step 2", unit="iter") as pbar:
-#         for i in range(total_iterations):
-
-#             optimizer5.zero_grad()
-
-#             output = model(betas=betas, expression=expression, body_pose=body_pose, transl=t_params,
-#                            global_orient=global_orient, left_hand_pose=left_hand_pose, right_hand_pose=right_hand_pose,
-#                            return_verts=True, D=D)
-#             smpl_mesh = Meshes(verts=[smplxsimp.apply_indices(output.vertices.to(device)).squeeze()],
-#                                faces=[(torch.tensor(smplxsimp.get_faces().astype(np.float64), dtype=torch.int32)).to(
-#                                    device)])
-#             # smpl_mesh_reg = Meshes(verts=[output.vertices[0, idx_regularisation].squeeze()],
-#             #                        faces=[(torch.tensor(faces_regularisation, dtype=torch.int32)).to(device)])
-
-#             if step_D_L_P2S:
-#                 loss_P2S = knn_loss2(smpl_mesh, PC1)
-#             else:
-#                 loss_P2S = 0.0
-
-#             if step_D_L_laplacien:
-#                 loss_laplacian = mesh_laplacian_smoothing(smpl_mesh, method="uniform")
-#             else:
-#                 loss_laplacian = 0.0
-
-#             if step_D_L_normal:
-#                 loss_normal = mesh_normal_consistency(smpl_mesh)
-#             else:
-#                 loss_normal = 0.0
-
-#             if step_D_L_id:
-#                 loss_id = torch.norm(torch.norm(D, dim=1))
-#             else:
-#                 loss_id = 0.0
-#             if step_D_L_id_face:
-#                 loss_id_face = 1e6 * torch.norm(torch.norm(D[idx_D], dim=1))
-#             else:
-#                 loss_id_face = 0.0
-#             loss = 2 * loss_P2S + 1e1 * loss_laplacian + 1e2 * loss_normal + loss_id + loss_id_face
-
-#             pbar.set_postfix({"Loss": f"{loss.item():.4f}"})
-#             pbar.update(1)
-
-#             loss.backward()
-#             optimizer5.step()
-#             if best_loss - loss_P2S > min_delta:
-#                 best_loss = loss_P2S
-#                 epochs_without_improvement = 0
-#             else:
-#                 epochs_without_improvement += 1
-
-#             scheduler5.step(loss_P2S)
-
-#             # Check if training should stop
-#             if epochs_without_improvement == patience:
-#                 print("Early stopping. No improvement in loss.")
-#                 break
-#     mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(), faces=model.faces)
-#     mesh_f.export(path + '/smplx_after_deformation_step_2.obj')
-#     best_loss = float('inf')
-#     optimizer5 = torch.optim.Adam([D], lr=1e-5)
-#     total_iterations = 5000
-#     min_delta = 0.05
-#     epochs_without_improvement = 0 
-#     with tqdm(total=total_iterations, desc="deformation vector step 3", unit="iter") as pbar:
-#         for i in range(total_iterations):
-#             optimizer5.zero_grad()
-
-#             output = model(betas=betas, expression=expression, body_pose=body_pose, transl=t_params,
-#                            global_orient=global_orient, left_hand_pose=left_hand_pose, right_hand_pose=right_hand_pose,
-#                            return_verts=True, D=D)
-#             smpl_mesh = Meshes(verts=[smplxsimp.apply_indices(output.vertices.to(device)).squeeze()],
-#                                faces=[(torch.tensor(smplxsimp.get_faces().astype(np.float64), dtype=torch.int32)).to(
-#                                    device)])
-#             # smpl_mesh_reg = Meshes(verts=[output.vertices[0, idx_regularisation].squeeze()],
-#             #                        faces=[(torch.tensor(faces_regularisation, dtype=torch.int32)).to(device)])
-
-#             if step_D_L_P2S:
-#                 # loss_P2S = 0.0
-#                 loss_P2S = knn_loss4(smpl_mesh, PC_full) 
-#             else:
-#                 loss_P2S = 0.0
-
-#             if step_D_L_laplacien:
-#                 loss_laplacian = mesh_laplacian_smoothing(smpl_mesh, method="uniform")
-#             else:
-#                 loss_laplacian = 0.0
-
-#             if step_D_L_normal:
-#                 loss_normal = mesh_normal_consistency(smpl_mesh)
-#             else:
-#                 loss_normal = 0.0
-
-#             # if step_D_L_id:
-#             #     loss_id = torch.norm(torch.norm(D, dim=1))
-#             # else:
-#             loss_id = 0.0
-
-#             if step_D_L_id_face:
-#                 loss_id_face = 1e6 * torch.norm(torch.norm(D[idx_D], dim=1))
-#             else:
-#                 loss_id_face = 0.0
-
-#             # loss = 2.5 * loss_P2S + 2 * 1e6 * loss_laplacian + 1e5 * loss_normal + loss_id + loss_id_face
-#             if i < 500:
-#                 loss = 2.5 * loss_P2S + 2 * 1e5 * loss_laplacian + 1e5 * loss_normal + loss_id + loss_id_face
-#             elif i < 1000:
-#                 loss = 2.5 * loss_P2S + 2 * 1e4 * loss_laplacian + 1e5 * loss_normal + loss_id + loss_id_face
-#             elif i < 1500:
-#                 loss = 2.5 * loss_P2S + 2 * 1e2 * loss_laplacian + 1e4 * loss_normal + loss_id + loss_id_face
-#             elif i < 2000:
-#                 loss = 2.5 * loss_P2S + 2 * 1e1 * loss_laplacian + 1e3 * loss_normal + loss_id + loss_id_face
-#             else:
-#                 loss = 2.5 * loss_P2S + 2 * loss_laplacian + 1e2 * loss_normal + loss_id + loss_id_face
-
-
-#             pbar.set_postfix({"Loss": f"{loss_P2S.item():.4f}"})
-#             pbar.update(1)
-
-#             loss.backward()
-#             optimizer5.step()
-#             if best_loss - loss_P2S > min_delta:
-#                 best_loss = loss_P2S
-#                 epochs_without_improvement = 0
-#             else:
-#                 epochs_without_improvement += 1
-
-#             scheduler5.step(loss)
-
-#             # # Check if training should stop
-#             if epochs_without_improvement == patience:
-#                 print("Early stopping. No improvement in loss.")
-#                 break
-
-#     mesh_f = trimesh.Trimesh(vertices=smplxsimp.apply_indices(output.vertices).detach().cpu().numpy().squeeze(),
-#                              faces=smplxsimp.get_faces())
-#     mesh_f.export(path + '/smpl_final_clothes_simple.obj')
-
-#     mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy(), faces=model.faces)
-#     mesh_f.export(path + '/smpl_final_clothes.obj')
-
-#     return mesh_f
 
 
 def main_sample(abs_path, out_path, root_path, model_folder,
@@ -724,13 +522,13 @@ def main_sample(abs_path, out_path, root_path, model_folder,
 
     downsample_mesh1 = trimesh.Trimesh(vertices=None, faces=None)
     downsample_mesh1.vertices = torch.squeeze(pointcloud).cpu().detach().numpy()
-    downsample_mesh1.export(path + '/downsample_pifu.ply')
+    # downsample_mesh1.export(path + '/downsample_pifu.ply')
 
     downsample_mesh1.vertices = torch.squeeze(pointcloud1).cpu().detach().numpy()
-    downsample_mesh1.export(path + '/downsample_pifu_2.ply')
+    # downsample_mesh1.export(path + '/downsample_pifu_2.ply')
 
-    save_obj(path + '/smpl_initial.obj', output.vertices.detach().squeeze(),
-             (torch.tensor(model.faces.astype(np.int32), dtype=torch.int64)))
+    # save_obj(path + '/smpl_initial.obj', output.vertices.detach().squeeze(),
+    #          (torch.tensor(model.faces.astype(np.int32), dtype=torch.int64)))
 
     t_params = -recalage_centroide(pointcloud.squeeze(), output.vertices.detach().squeeze()).reshape((1, 3))
     t_params.requires_grad = True
@@ -745,9 +543,6 @@ def main_sample(abs_path, out_path, root_path, model_folder,
     optimizer4 = torch.optim.Adam([D], lr=5 * 1e-5)
     optimizer5 = torch.optim.Adam([D], lr=1e-4)
 
-    # optimizer4 = torch.optim.Adam([D], lr=1e-2)
-    # optimizer5 = torch.optim.Adam([D], lr=1e-4)
-    # Define the learning rate scheduler
     scheduler0 = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer0, mode='min', factor=0.5, patience=5,
                                                             verbose=True)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3,
@@ -896,8 +691,7 @@ if __name__ == "__main__":
 
     read_dictionary = np.load(os.path.join(root_path, args.data_path, 'feet_penal.npy'), allow_pickle='TRUE').item()
     idx_feet = read_dictionary['idx']
-    # idx_feet_complementaire = sorted(set(range(10475)) - set(idx_feet.flatten().tolist()))
-    # idx_feet_complementaire = sorted(set(range(10475)))
+
     idx_feet_complementaire = sorted(set(range(10436)))
     idx_feet_complementaire = torch.tensor(idx_feet_complementaire, dtype=torch.long)
 
@@ -911,7 +705,6 @@ if __name__ == "__main__":
     smplxsimp = SMPLXSimp(os.path.join(root_path, args.data_path, 'idx_wo_toes.npy'))
     mesh_simple = trimesh.load_mesh(os.path.join(root_path, args.data_path, 'smplx_uv_simple.obj'), process=False, maintain_order=True)
 
-    # abs_path = os.path.join(root_path, args.data_path, 'recon/')
     abs_path = os.path.join(root_path, args.input_path)
 
     abs_path_target = os.path.join(root_path, args.data_path, 'target')
@@ -919,26 +712,14 @@ if __name__ == "__main__":
     out_path_recons = os.path.join(root_path, args.output_path)
 
     if not os.path.exists(os.path.join(root_path, args.output_path)):
-        # If it doesn't exist, create it
         os.makedirs(os.path.join(root_path, args.output_path), exist_ok=True)
     if not os.path.exists(out_path_recons):
-        # If it doesn't exist, create it
         os.mkdir(out_path_recons, exist_ok=True)
 
-    # ***********************************************************************************
-
-    # model_folder = osp.expanduser(osp.expandvars('models'))
     model_folder = os.path.join(root_path, 'models')
     model_type = 'smplx'
     plot_joints = True
     use_face_contour = False
-    # objs = DeepFace.analyze(
-    #   img_path="female-1-casual_Moment.jpg",
-    #   actions=['gender'],
-    #   # actions = ['age', 'gender', 'race', 'emotion'],
-    # )
-    # deep_gender = objs[0]["dominant_gender"]
-    # gender = "female" if deep_gender == "Woman" else "male"
     gender = "female"
 
     ext = 'npz'
@@ -965,7 +746,7 @@ if __name__ == "__main__":
 
     use_lama = False
 
-    # i=0
+
     global time_execution
     time_execution = [[] for i in range(5)]
 
@@ -997,13 +778,3 @@ if __name__ == "__main__":
 
     with open("time_log.txt", "a") as log_file:
       log_file.write(f"mean_execution_times: {mean_execution_times}\n")
-  # Save time_execution in time_log
-
-    # main(abs_path, out_path_recons, root_path, model_folder, model_type, ext=ext,
-    #       gender=gender, plot_joints=plot_joints,
-    #       num_betas=num_betas,
-    #       num_expression_coeffs=num_expression_coeffs,
-    #       sample_shape=sample_shape,
-    #       sample_expression=sample_expression,
-    #       plotting_module=plotting_module,
-    #       use_face_contour=use_face_contour)

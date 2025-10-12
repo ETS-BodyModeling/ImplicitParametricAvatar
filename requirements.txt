@@ -35,7 +35,7 @@ pytorch3d
 pydantic
 smplx
 rtree
-torchmetrics
+torchmetrics==1.2.0
 lpips
 rembg
 onnxruntime

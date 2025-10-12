@@ -8,6 +8,7 @@ def parse_args(args=None):
     parser.add_argument('--output_path', type=str, default='output_simple/recons', help='Output directory for reconstructed mesh')
     parser.add_argument('--input_path', type=str, default='data/recon', help='Directory for target data')
     parser.add_argument('--output_path_render', type=str, default='output_simple/output_render', help='Output directory for rendered images')
+    parser.add_argument('--run_animation', action='store_true', help='Run animation step')
     return parser.parse_args(args)
 
 if __name__ == "__main__":
@@ -18,7 +19,7 @@ if __name__ == "__main__":
         os.makedirs(args.output_path, exist_ok=True)
 
     # run reconstruction code
-    print("********running reconstruction  ----------- check output/recons  *******")
+    print("********running reconstruction  ----------- check output_simple/recons  *******")
 
     command = [
         "python", "-m", "scripts.main_optim_simple",
@@ -30,7 +31,7 @@ if __name__ == "__main__":
     print("Error:", result.stderr)
 
     # run rendering code
-    print("********running rendering  ----------- check output/renders  *******")
+    print("********running rendering  ----------- check output_simple/output_render  *******")
 
     render_command = [
         "python", "-m", "scripts.main_render_simple",
@@ -42,26 +43,39 @@ if __name__ == "__main__":
     print("Error:", render_result.stderr)
 
 
-    # run animation code
-    print("********running animation  ----------- check output/animations  *******")
+    # run stats code
+    print("********running stats  ----------- check output_simple/output_render/{stats/stats_3d} *******")
 
-    animation_command = [
-        "python", "-m", "scripts.main_animation_simple",
-        "--output_path", args.output_path, "--output_path_render", "output_simple/output_animation"
+    stats_command = [
+        "python", "-m", "scripts.main_stats_1",
+        "--output_path", args.output_path, '--output_path_render', args.output_path_render
     ]
-    animation_result = subprocess.run(animation_command, capture_output=True, text=True, check=False)
-    print("Return code:", animation_result.returncode)
-    print("Output:", animation_result.stdout)
-    print("Error:", animation_result.stderr)
+    stats_result = subprocess.run(stats_command, capture_output=True, text=True, check=False)
+    print("Return code:", stats_result.returncode)
+    print("Output:", stats_result.stdout)
+    print("Error:", stats_result.stderr)
 
 
-    # run combine video code
-    print("********running combine video  ----------- check output/videos  *******")
+    # run animation code if flag is set
+    if args.run_animation:
+        print("********running animation  ----------- check output/animations  *******")
+        animation_command = [
+            "python", "-m", "scripts.main_animation_simple",
+            "--output_path", args.output_path, "--output_path_render", "output_simple/output_animation"
+        ]
+        animation_result = subprocess.run(animation_command, capture_output=True, text=True, check=False)
+        print("Return code:", animation_result.returncode)
+        print("Output:", animation_result.stdout)
+        print("Error:", animation_result.stderr)
 
-    combine_video_command = [
-        "python", "-m", "scripts.combine_video"
-    ]
-    combine_video_result = subprocess.run(combine_video_command, capture_output=True, text=True, check=False)
-    print("Return code:", combine_video_result.returncode)
-    print("Output:", combine_video_result.stdout)
-    print("Error:", combine_video_result.stderr)
+
+        # run combine video code
+        print("********running combine video  ----------- check output/output_combined  *******")
+
+        combine_video_command = [
+            "python", "-m", "scripts.combine_video"
+        ]
+        combine_video_result = subprocess.run(combine_video_command, capture_output=True, text=True, check=False)
+        print("Return code:", combine_video_result.returncode)
+        print("Output:", combine_video_result.stdout)
+        print("Error:", combine_video_result.stderr)

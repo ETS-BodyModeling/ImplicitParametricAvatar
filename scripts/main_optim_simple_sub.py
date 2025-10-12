@@ -69,7 +69,7 @@ def recalage_rigide(model, optimizer0, scheduler0, betas, expression, body_pose,
             if i == 0:
                 mesh_temp = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(),
                                             faces=model.faces)
-                mesh_temp.export(path + '/smplx_after_box.obj')
+                # mesh_temp.export(path + '/smplx_after_box.obj')
             # loss=torch.norm(betas[0,1:])/5+MSE_loss(output.joints.to(device)[:,body_mapping][:,[0,15,16,21,24]],pose_prior[:,[0,15,16,21,24]]) + MSE_loss(output.joints.to(device)[:,body_mapping][:,[22,23,24]].mean(1),pose_prior[:,[22,23,24]].mean(1))+ MSE_loss(output.joints.to(device)[:,body_mapping][:,[19,20,21]].mean(1),pose_prior[:,[19,20,22]].mean(1))
             loss = chamfer_distance(smplxsimp.apply_indices(output.vertices.to(device)), pointcloud)[0] + MSE_loss(
                 output.joints.to(device)[:, body_mapping][:,
@@ -101,7 +101,7 @@ def recalage_rigide(model, optimizer0, scheduler0, betas, expression, body_pose,
                 break
 
     mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_rigid.obj')
+    # mesh_f.export(path + '/smplx_after_rigid.obj')
 
 
 def pose_optimization(step_pose_L_sc, model, optimizer, scheduler, betas, expression, body_pose, global_orient,
@@ -139,7 +139,7 @@ def pose_optimization(step_pose_L_sc, model, optimizer, scheduler, betas, expres
             scheduler.step(loss)
 
     mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_pose.obj')
+    # mesh_f.export(path + '/smplx_after_pose.obj')
 
 
 def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, model, optimizer1, optimizer2,
@@ -193,7 +193,7 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
                 print("Early stopping. No improvement in loss.")
                 break
     mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_shape_s1.obj')
+    # mesh_f.export(path + '/smplx_after_shape_s1.obj')
 
     patience = 10  # Number of epochs to wait for loss improvement
     min_delta = 1  # Minimum change in loss to be considered as an improvement
@@ -255,7 +255,7 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
                 print("Early stopping. No improvement in loss.")
                 break
     mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_shape_s2.obj')
+    # mesh_f.export(path + '/smplx_after_shape_s2.obj')
 
     total_iterations = 600
     with tqdm(total=total_iterations, desc="shape optim step 3", unit="iter") as pbar:
@@ -300,7 +300,7 @@ def shape_optimization(step_shape_L_chamfer, step_shape_L_P2S, step_shape_L_sc, 
             loss.backward()
             optimizer2.step()
     mesh_f = trimesh.Trimesh(vertices=output.vertices.detach().cpu().numpy().squeeze(), faces=model.faces)
-    mesh_f.export(path + '/smplx_after_shape_s3.obj')
+    # mesh_f.export(path + '/smplx_after_shape_s3.obj')
 
 
 # def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_D_L_id, step_D_L_id_face, model,
@@ -359,7 +359,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer4.step()
       # scheduler4.step(loss_P2S)
   mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze().detach().cpu().numpy()), faces=faces_simple_sub, process=False, maintain_order=True)
-  mesh_f.export(path+ '/smplx_after_deformation_step_1.obj')
+  # mesh_f.export(path+ '/smplx_after_deformation_step_1.obj')
 
   total_iterations = 1000
   with tqdm(total=total_iterations, desc="deformation vector step 2", unit="iter") as pbar:
@@ -405,7 +405,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer4.step()
       # scheduler4.step(loss_P2S)
   mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze().detach().cpu().numpy()), faces=faces_simple_sub, process=False, maintain_order=True)
-  mesh_f.export(path+ '/smplx_after_deformation_step_2.obj')
+  # mesh_f.export(path+ '/smplx_after_deformation_step_2.obj')
 
 
   total_iterations = 500
@@ -452,7 +452,7 @@ def deformation_clothes(step_D_L_P2S, step_D_L_laplacien, step_D_L_normal, step_
       optimizer4.step()
       # scheduler4.step(loss_P2S)
   mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze().detach().cpu().numpy()), faces=faces_simple_sub, process=False, maintain_order=True)
-  mesh_f.export(path+ '/smplx_after_deformation_step_3..obj')
+  # mesh_f.export(path+ '/smplx_after_deformation_step_3..obj')
 
   total_iterations = 500
   with tqdm(total=total_iterations, desc="deformation vector step 4", unit="iter") as pbar:
@@ -544,10 +544,10 @@ def main_sample(abs_path, out_path, root_path, model_folder,
 
     downsample_mesh1 = trimesh.Trimesh(vertices=None, faces=None)
     downsample_mesh1.vertices = torch.squeeze(pointcloud).cpu().detach().numpy()
-    downsample_mesh1.export(path + '/downsample_pifu.ply')
+    # downsample_mesh1.export(path + '/downsample_pifu.ply')
 
     downsample_mesh1.vertices = torch.squeeze(pointcloud1).cpu().detach().numpy()
-    downsample_mesh1.export(path + '/downsample_pifu_2.ply')
+    # downsample_mesh1.export(path + '/downsample_pifu_2.ply')
 
     save_obj(path + '/smpl_initial.obj', output.vertices.detach().squeeze(),
              (torch.tensor(model.faces.astype(np.int32), dtype=torch.int64)))
