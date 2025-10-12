@@ -37,7 +37,7 @@ This project provides a robust solution for 3D reconstruction and avatar generat
 - **Texture Mapping**: A dedicated texture extraction and completion pipeline for detailed avatar representation.
 
 Here is an example of an animation:
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation.gif)
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/animation.gif)
 
 ## Installation
 
