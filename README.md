@@ -109,17 +109,27 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
  Extract the downloaded ZIP file (if applicable) to your local directory. For instance, place the contents into a folder named `data` in the project root directory:
 
 
-2. To run the simple smplx reconstruction pipeline and texture extraction, the rendering and animation execute the following command
+2. To run the simple SMPL-X reconstruction pipeline, perform texture extraction, rendering, and evaluate the shoe-like method, execute the following command (it takes around 1 hour for 20 X-Avatar input data without animation flag):
 
    ```bash
    python -m scripts.run_pipeline_simple
    ```
+To create animation from the reconstructed data, add the `--run_animation` flag:
+   ```bash
+   python -m scripts.run_pipeline_simple --run_animation
+   ```
 
-3.  To run the simple smplx subdivided reconstruction pipeline and texture extraction, the rendering and animation execute the following command
+
+3.  To run the shoe like smplx subdivided reconstruction pipeline and texture extraction, the rendering and animation execute the following command (it takes around 2 hour for 20 X-Avatar input data without animation flag)
 
    ```bash
    python -m scripts.run_pipeline_simple_sub
    ```
+To create animation from the reconstructed data, add the `--run_animation` flag:
+   ```bash
+   python -m scripts.run_pipeline_simple_sub --run_animation
+   ```
+
 
 This script applies motion sequences from the AMASS dataset to the reconstructed meshes, creating dynamic animations. -->
 
