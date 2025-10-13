@@ -143,7 +143,7 @@ for (dirpath, dirnames,filenames) in walk(out_path_recons):
     # verts=torch.tensor(mesh_f.vertices)
     mesh_simple_sub = trimesh.load_mesh(os.path.join(root_path, args.data_path, 'smplx_uv_simple_sub.obj'), process=False, maintain_order=True)
     mesh_f = trimesh.Trimesh(vertices=(output.vertices.squeeze()).detach().cpu().numpy().squeeze(), faces=mesh_simple_sub.faces, process=False, maintain_order=True)
-    mesh_f.export(out_path_recons+'/'+dir+'/'+'test.obj')
+    # mesh_f.export(out_path_recons+'/'+dir+'/'+'test.obj')
     verts=torch.tensor(mesh_f.vertices)
     mesh1=Meshes(verts=[verts.to(torch.float32).to(device)], faces=[(torch.tensor(mesh_simple_sub.faces,dtype=torch.int64)).to(device)], textures=texture)
     # mesh1=Meshes(verts=[verts.to(torch.float32).to(device)], faces=[(torch.tensor(model.faces.astype(np.int32),dtype=torch.int64)).to(device)], textures=texture)
