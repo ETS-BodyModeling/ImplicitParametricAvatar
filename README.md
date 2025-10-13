@@ -129,13 +129,12 @@ To create animation from the reconstructed data, add the `--run_animation` flag:
    python -m scripts.run_pipeline_simple --run_animation
    ```
 
-   ```bash
-   python -m scripts.run_pipeline_simple
-   ```
-To create animation from the reconstructed data, add the `--run_animation` flag:
-   ```bash
-   python -m scripts.run_pipeline_simple --run_animation
-   ```
+   The results will be saved in the `output_simple` directory with the following subfolders:
+
+   - `recons`: Contains reconstructed SMPL-X meshes and corresponding textures.
+   - `output_render`: Stores rendered frontal images, normal maps, and silhouettes.
+   - `stats`: Includes quantitative statistics evaluating the performance of the method.
+   - `output_animation`: The resulting animation will be saved in this directory, showcasing the avatar animated with the AMASS hiphop sequence.
 
 
 3. To run the shoe-like SMPL-X subdivided reconstruction pipeline, perform texture extraction, rendering, and animation, execute the following command (it takes around **1 hour on NVIDIA L4** or **1 hour on RTX 3060** for 20 X-Avatar input data without the animation flag):
@@ -147,15 +146,12 @@ To create animation from the reconstructed data, add the `--run_animation` flag:
    ```bash
    python -m scripts.run_pipeline_simple_sub --run_animation
    ```
+   The results will be saved in the `output_sub` directory with the following subfolders:
 
-   ```bash
-   python -m scripts.run_pipeline_simple_sub
-   ```
-To create animation from the reconstructed data, add the `--run_animation` flag:
-   ```bash
-   python -m scripts.run_pipeline_simple_sub --run_animation
-   ```
-
+   - `recons`: Contains reconstructed SMPL-X meshes and corresponding textures.
+   - `output_render`: Stores rendered frontal images, normal maps, and silhouettes.
+   - `stats`: Includes quantitative statistics evaluating the performance of the method.
+   - `output_animation`: The resulting animation will be saved in this directory, showcasing the avatar animated with the AMASS hiphop sequence.
 
 This script applies motion sequences from the AMASS dataset to the reconstructed meshes, creating dynamic animations. -->
 
