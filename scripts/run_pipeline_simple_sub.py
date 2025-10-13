@@ -17,29 +17,29 @@ if __name__ == "__main__":
     if not os.path.exists(args.output_path):
         os.makedirs(args.output_path, exist_ok=True)
 
-    # # # run reconstruction code
-    # print("********running reconstruction  ----------- check output_sub/recons  *******")
+    # # run reconstruction code
+    print("********running reconstruction  ----------- check output_sub/recons  *******")
 
-    # command = [
-    #     "python", "-m", "scripts.main_optim_simple_sub",
-    #     "--output_path", args.output_path, "--input_path", args.input_path
-    # ]
-    # result = subprocess.run(command, capture_output=True, text=True, check=False)
-    # print("Return code:", result.returncode)
-    # print("Output:", result.stdout)
-    # print("Error:", result.stderr)
+    command = [
+        "python", "-m", "scripts.main_optim_simple_sub",
+        "--output_path", args.output_path, "--input_path", args.input_path
+    ]
+    result = subprocess.run(command, capture_output=True, text=True, check=False)
+    print("Return code:", result.returncode)
+    print("Output:", result.stdout)
+    print("Error:", result.stderr)
 
-    # # run rendering code
-    # print("********running rendering  ----------- check output_sub/output_render  *******")
+    # run rendering code
+    print("********running rendering  ----------- check output_sub/output_render  *******")
 
-    # render_command = [
-    #     "python", "-m", "scripts.main_render_simple_sub",
-    #     "--output_path", args.output_path, "--output_path_render", args.output_path_render  
-    # ]
-    # render_result = subprocess.run(render_command, capture_output=True, text=True, check=False)
-    # print("Return code:", render_result.returncode)
-    # print("Output:", render_result.stdout)
-    # print("Error:", render_result.stderr)
+    render_command = [
+        "python", "-m", "scripts.main_render_simple_sub",
+        "--output_path", args.output_path, "--output_path_render", args.output_path_render  
+    ]
+    render_result = subprocess.run(render_command, capture_output=True, text=True, check=False)
+    print("Return code:", render_result.returncode)
+    print("Output:", render_result.stdout)
+    print("Error:", render_result.stderr)
 
     # run stats code
     print("********running stats  ----------- check output_sub/output_render/{stats/stats_3d} *******")

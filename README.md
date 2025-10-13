@@ -137,7 +137,7 @@ To create animation from the reconstructed data, add the `--run_animation` flag:
    - `output_animation`: The resulting animation will be saved in this directory, showcasing the avatar animated with the AMASS hiphop sequence.
 
 
-3. To run the shoe-like SMPL-X subdivided reconstruction pipeline, perform texture extraction, rendering, and animation, execute the following command (it takes around **1 hour on NVIDIA L4** or **1 hour on RTX 3060** for 20 X-Avatar input data without the animation flag):
+3. To run the shoe-like SMPL-X subdivided reconstruction pipeline, perform texture extraction, rendering, and animation, execute the following command (it takes around **2 hour on NVIDIA L4** or **1 hour on RTX 3060** for 20 X-Avatar input data without the animation flag):
 
    ```bash
    python -m scripts.run_pipeline_simple_sub
