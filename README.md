@@ -51,10 +51,21 @@ This project provides a robust solution for 3D reconstruction and avatar generat
 
 ### Prerequisites
 
+### Tested on 
+
+
 - Python 3.10
 - PyTorch torch==2.0.1
 - Pytorch3d (version compatible with your system's CUDA version)
 - Other dependencies are listed in `requirements.txt`
+
+1.
+- Operating System: Ubuntu 24.04.2 LTS
+- GPU Model: NVIDIA GeForce RTX 3060
+- NVIDIA Driver Version: 550.120
+- CUDA Version: 12.4
+
+2.
 - Operating System: Amazon Linux 2023.6.20241111
 - Kernel: Linux 6.1.115-126.197.amzn2023.x86_64
 - GPU Model: NVIDIA L4
@@ -108,8 +119,15 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
 
  Extract the downloaded ZIP file (if applicable) to your local directory. For instance, place the contents into a folder named `data` in the project root directory:
 
+2. To run the simple SMPL-X reconstruction pipeline, perform texture extraction, rendering, and evaluate the shoe-like method, execute the following command (it takes around **1 hour on NVIDIA L4** or **30 minutes on RTX 3060** for 20 X-Avatar input data without the animation flag):
 
-2. To run the simple SMPL-X reconstruction pipeline, perform texture extraction, rendering, and evaluate the shoe-like method, execute the following command (it takes around 1 hour for 20 X-Avatar input data without animation flag):
+   ```bash
+   python -m scripts.run_pipeline_simple
+   ```
+To create animation from the reconstructed data, add the `--run_animation` flag:
+   ```bash
+   python -m scripts.run_pipeline_simple --run_animation
+   ```
 
    ```bash
    python -m scripts.run_pipeline_simple
@@ -120,7 +138,15 @@ To create animation from the reconstructed data, add the `--run_animation` flag:
    ```
 
 
-3.  To run the shoe like smplx subdivided reconstruction pipeline and texture extraction, the rendering and animation execute the following command (it takes around 2 hour for 20 X-Avatar input data without animation flag)
+3. To run the shoe-like SMPL-X subdivided reconstruction pipeline, perform texture extraction, rendering, and animation, execute the following command (it takes around **1 hour on NVIDIA L4** or **1 hour on RTX 3060** for 20 X-Avatar input data without the animation flag):
+
+   ```bash
+   python -m scripts.run_pipeline_simple_sub
+   ```
+To create animation from the reconstructed data, add the `--run_animation` flag:
+   ```bash
+   python -m scripts.run_pipeline_simple_sub --run_animation
+   ```
 
    ```bash
    python -m scripts.run_pipeline_simple_sub
