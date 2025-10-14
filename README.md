@@ -180,25 +180,3 @@ MIG '24, November 21–23, 2024, Arlington, VA, USA
 ACM ISBN 979-8-4007-1090-2/24/11.  
 DOI: [https://doi.org/10.1145/3677388.3696328](https://doi.org/10.1145/3677388.3696328)
 
-
-### Citation
-
-If you use this project in your research, you must cite:
-```bibtex
-@inproceedings{10.1145/3677388.3696328,
-  author = {Mallek, Fares and V\'{a}zquez, Carlos and Paquette, Eric},
-  title = {Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human},
-  year = {2024},
-  isbn = {9798400710902},
-  publisher = {Association for Computing Machinery},
-  address = {New York, NY, USA},
-  url = {https://doi.org/10.1145/3677388.3696328},
-  doi = {10.1145/3677388.3696328},
-  booktitle = {Proceedings of the 17th ACM SIGGRAPH Conference on Motion, Interaction, and Games},
-  articleno = {20},
-  numpages = {11},
-  keywords = {3D modeling, Human avatars, animation, computer vision., deep neural networks, parametric models, textures},
-  location = {Arlington, VA, USA},
-  series = {MIG '24}
-}
-
