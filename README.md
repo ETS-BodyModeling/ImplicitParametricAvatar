@@ -9,21 +9,21 @@
 This project is associated with the research paper:
 Fares Mallek ([ORCID](http://orcid.org/0009-0001-1221-4431)), Carlos Vázquez ([ORCID](http://orcid.org/0000-0003-2161-8507)), and Eric Paquette ([ORCID](http://orcid.org/0000-0001-9236-647X)). 2024. **Parametric Model Fittingfor Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human**. Accepted in Computers & Graphics
 
-![Teaser Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/intro_fig.png)
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/rotation.gif)
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/animation_1.gif)
+![Teaser Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/intro_fig.png)
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/rotation.gif)
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation_1.gif)
 
 
-This project is a continuance of the paper "Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human" ([original repository](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar.git)).
+This project is a continuance of the paper "Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human" ([original repository](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar-Base.git)).
 
 In this work, we introduces an easily animatable new SMPL-X mesh topology with shoe-like feet, enabling more realistic and flexible character animation. Key features include:
 
 - **New SMPL-X Mesh Topology**: Designed for easy animation, the mesh features shoe-like feet for improved realism and articulation.
-![Improvement1](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/feet_improvement.png)
+![Improvement1](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/feet_improvement.png)
 - **Subdivision for Detail**: The SMPL-X mesh is subdivided to enhance the representation of fine details, especially when computing deformation vectors.
 
 These improvements make the model more suitable for high-quality animation and rendering tasks.
-![Improvement2](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/improvement.png)
+![Improvement2](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/improvement.png)
 
 ## Table of Contents
 - [Overview](#overview)
@@ -43,7 +43,7 @@ This project provides a robust solution for 3D reconstruction and avatar generat
 - **Texture Mapping**: A dedicated texture extraction and completion pipeline for detailed avatar representation.
 
 <!-- Here is an example of an animation:
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined/blob/main/teaser/animation.gif) -->
+![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation.gif) -->
 
 ## Installation
 
@@ -76,8 +76,8 @@ This project provides a robust solution for 3D reconstruction and avatar generat
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ETS-BodyModeling/ImplicitParametricAvatarRefined.git
-   cd ImplicitParametricAvatarRefined
+   git clone https://github.com/ETS-BodyModeling/ImplicitParametricAvatar.git
+   cd ImplicitParametricAvatar
    ```
 2. ```bash
    python3 -m venv .venv
