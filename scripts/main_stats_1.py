@@ -117,13 +117,15 @@ if __name__ == "__main__":
     # 2d evaluation  //////////////////////////////////////////////////////////////////////////////////////
     evaluation_pathes=['ours']
     names=['ours']
-    types=['rgb','normals']
+    types=['normals', 'rgb']
 
     transform = transforms.ToTensor()
 
     psnr = PeakSignalNoiseRatio()
     lpips_alex = lpips.LPIPS(net='alex')
     ssim = StructuralSimilarityIndexMeasure(data_range=1.0) 
+
+    mean_data=[]
 
     i=0
     for i,type_select in enumerate(types) :
@@ -228,6 +230,8 @@ if __name__ == "__main__":
             lpips_list=np.append(lpips_list,lpips_mean)
             psnr_list=np.append(psnr_list,psnr_mean)
 
+            mean_data.append([ssim_mean,lpips_mean,psnr_mean, IOU_mean])
+
 
             data = zip(IOU_list,ssim_list, lpips_list, psnr_list)
 
@@ -315,6 +319,8 @@ if __name__ == "__main__":
     loss_chamfer=np.append(loss_chamfer,loss_chamfer_m)
     print(loss_normal,'****',loss_chamfer)
 
+    mean_data.insert(0, [loss_chamfer_m, loss_normal_m])
+
 
     csv_file = os.path.join( os.path.join( stats_parent, 'stats_3d'),'3d_data.csv')
     print(csv_file)
@@ -325,3 +331,30 @@ if __name__ == "__main__":
         writer = csv.writer(file)
         writer.writerow(['loss_normal','loss_chamfer'])
         writer.writerows(data)
+    
+    # Save a CSV containing only the mean values (2D means if available and 3D means)
+
+    means_csv = os.path.join(stats_parent, 'ours.csv')
+
+
+    mean_fields = ['CD', 'NC','ssim_normals', 'lpips_normals', 'IOU_normals', 'psnr_normals',
+                   'ssim_rgb', 'lpips_rgb', 'psnr_rgb', 'IOU']
+
+    with open(means_csv, 'w', newline='') as mf:
+        writer = csv.writer(mf)
+        writer.writerow(mean_fields)
+        # Flatten mean_data into a single row matching mean_fields and write as one CSV row
+        flat = [round(val, 3) for row in mean_data for val in row]
+        # remove the 5th element (index 4) if it exists
+        mean_fields.pop(5)
+        flat.pop(5)
+
+        # Ensure the flattened row matches header length (pad or trim if necessary)
+        if len(flat) < len(mean_fields):
+            flat += [''] * (len(mean_fields) - len(flat))
+        elif len(flat) > len(mean_fields):
+            flat = flat[:len(mean_fields)]
+
+        writer.writerow(flat)
+
+    
