@@ -95,9 +95,9 @@ def calculate_iou(predicted_mask, target_mask):
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser(description="Render SMPLX models with textures")
-    parser.add_argument('--output_path', type=str, default='output/recons', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path', type=str, default='output_simple/recons', help='Output directory for reconstructed mesh')
     parser.add_argument('--data_path', type=str, default='data', help='Directory for target data')
-    parser.add_argument('--output_path_render', type=str, default='output/output_render', help='Output directory for reconstructed mesh')
+    parser.add_argument('--output_path_render', type=str, default='output_simple/output_render', help='Output directory for reconstructed mesh')
     return parser.parse_args(args)
 
 if __name__ == "__main__":
@@ -244,6 +244,8 @@ if __name__ == "__main__":
             # print(ssim_mean,lpips_mean,psnr_mean)
 
 
+
+
     # 3d evaluation  //////////////////////////////////////////////////////////////////////////////////////
     data_3d_exists = True
     if abs_path_target_mesh is None or not os.path.exists(abs_path_target_mesh):
@@ -251,6 +253,9 @@ if __name__ == "__main__":
         data_3d_exists = False
 
     if data_3d_exists:  
+
+        moyenne = [0.907,	0.805,	0.870,	0.125,	20.827,	0.900,	0.073,	23.229,	0.976]
+        std = [0.00460,	0.00045,	0.00030,	0.00053,	0.02335,	0.00028,	0.00056,	0.06945,	0.00018]
         if not os.path.exists(os.path.join( stats_parent, 'stats_3d')):
             # Create the directory if it does not exist
             os.mkdir(os.path.join( stats_parent, 'stats_3d'))
@@ -342,8 +347,9 @@ if __name__ == "__main__":
         means_csv = os.path.join(stats_parent, 'ours.csv')
 
 
-        mean_fields = ['CD', 'NC','ssim_normals', 'lpips_normals', 'IOU_normals', 'psnr_normals',
+        mean_fields = ["name", 'CD', 'NC','ssim_normals', 'lpips_normals', 'psnr_normals',
                     'ssim_rgb', 'lpips_rgb', 'psnr_rgb', 'IOU']
+
 
         with open(means_csv, 'w', newline='') as mf:
             writer = csv.writer(mf)
@@ -359,20 +365,27 @@ if __name__ == "__main__":
                 flat += [''] * (len(mean_fields) - len(flat))
             elif len(flat) > len(mean_fields):
                 flat = flat[:len(mean_fields)]
-
+            flat.insert(0, "ours")
+            moyenne.insert(0, "mean")
+            std.insert(0, "std")
             writer.writerow(flat)
+            writer.writerow(moyenne)
+            writer.writerow(std)
     else:
+
+        moyenne = [0.870,	0.125,	20.827,	0.900,	0.073,	23.229,	0.976]
+        std = [0.00030,	0.00053,	0.02335,	0.00028,	0.00056,	0.06945,	0.00018]
         print("3D evaluation skipped due to missing target mesh data.")
         # Save a CSV containing only the mean values (2D means only)
         means_csv = os.path.join(stats_parent, 'ours.csv')
-        mean_fields = ['ssim_normals', 'lpips_normals', 'psnr_normals', 'IOU_normals',
-                    'ssim_rgb', 'lpips_rgb', 'psnr_rgb', 'IOU']
+        # mean_fields = ['ssim_normals', 'lpips_normals', 'psnr_normals', 'IOU_normals',
+        #             'ssim_rgb', 'lpips_rgb', 'psnr_rgb', 'IOU']
         # Prepare the header and data row so they match in length
-        header = ['ssim_normals', 'lpips_normals', 'psnr_normals', 'IOU_normals',
+        header = ['ssim_normals', 'lpips_normals', 'psnr_normals',
                   'ssim_rgb', 'lpips_rgb', 'psnr_rgb', 'IOU']
         flat = [round(val, 3) for row in mean_data for val in row]
 
-        mean_fields.pop(3)
+        # mean_fields.pop(3)
         flat.pop(3)
         # Remove the 4th element (index 3) from both header and flat if flat is longer than header
         # if len(flat) > len(header):
@@ -382,9 +395,16 @@ if __name__ == "__main__":
             flat += [''] * (len(header) - len(flat))
         elif len(flat) > len(header):
             flat = flat[:len(header)]
+        
+        flat.insert(0, "ours")
+        moyenne.insert(0, "mean")
+        std.insert(0, "std")
+        header.insert(0, "name")
         with open(means_csv, 'w', newline='') as mf:
             writer = csv.writer(mf)
             writer.writerow(header)
             writer.writerow(flat)
+            writer.writerow(moyenne)
+            writer.writerow(std)
 
     
