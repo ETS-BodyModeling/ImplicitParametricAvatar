@@ -1,0 +1,4 @@
+Title: Parametric Model Fitting for Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human
+Authors: Fares Mallek, Carlos Vázquez, Eric Paquette
+Operating System Tested: Ubuntu 24.04.2 LTS and Amazon Linux 2023.6.20241111
+GPU Hardware: NVIDIA GeForce RTX 3060, NVIDIA L4
