@@ -1,20 +1,44 @@
-
 # Parametric Model Fitting for Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human
 
-<!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1DF2qVcJJMTN7scutey1qfUF_LeYsf7EW?usp=sharing) [![ACM Publication](https://img.shields.io/badge/ACM-MIG%252024-blue)](https://dl.acm.org/doi/10.1145/3677388.3696328) 
-[![View in Browser](https://img.shields.io/badge/View-HTML%20Version-orange)](https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/MIG24/9/a6c2ee09-7446-11ef-ada9-16bb50361d1f/OUT/mig24-9.html) -->
+**Under review for the Graphics Replicability Stamp Initiative (GRSI)**
+
+---
+
+## GRAPHICS REPLICABILITY STAMP INITIATIVE (GRSI)
+
+This repository is provided for evaluation by the **Graphics Replicability Stamp Initiative** (GRSI).  
+All materials required for the review are located in the root directory or referenced below.
+
+### Repository Contents
+
+- **Submission Information:** [`submission_info.txt`](submission_info.txt)  
+  Contains the submission title, authors, and operating system, as required for GRSI.
+- **Liability Form:** [`LIABILITY_FORM.md`](LIABILITY_FORM.md)  
+  Provides permission for the reproducibility committee and reviewers to evaluate and publicly advertise the review.
+- **Installation Script:** [`INSTALL.sh`](INSTALL.sh)  
+  Automates environment setup and dependency installation on a vanilla system. See [Installation & Setup](#installation--setup) for details.
+- **Result Generation Scripts:**  
+  Scripts to reproduce the quantitative results presented in the paper (e.g., *Table 1*). These scripts run without parameters. See [Replicating Results (Table 1)](#replicating-results-table-1) for execution details.
+
+---
 
 ## Publication
 
-This project is associated with the research paper:
-Fares Mallek ([ORCID](http://orcid.org/0009-0001-1221-4431)), Carlos Vázquez ([ORCID](http://orcid.org/0000-0003-2161-8507)), and Eric Paquette ([ORCID](http://orcid.org/0000-0001-9236-647X)). 2024. **Parametric Model Fitting for Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human**. Accepted in Computers & Graphics
+This repository accompanies the following publication:
 
-![Teaser Image](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/intro_fig.png)
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/rotation.gif)
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation_1.gif)
+**Fares Mallek**, **Carlos Vázquez**, and **Eric Paquette**.  
+*Parametric Model Fitting for Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human.*  
+Accepted in *Computers & Graphics*, 2024.
 
+**DOI:** _Under review_  
+**Associated Work:**  
+> Mallek, F., Vázquez, C., & Paquette, E. (2024). *Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human.*  
+> In *Proceedings of Motion, Interaction and Games (MIG’24)*, November 21–23, 2024, Arlington, VA, USA.  
+> [https://doi.org/10.1145/3677388.3696328](https://doi.org/10.1145/3677388.3696328)
 
-This project is a continuance of the paper "Implicit and Parametric Avatar Pose and Shape Estimation From a Single Frontal Image of a Clothed Human" ([original repository](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar-Base.git)).
+---
+
+## Overview
 
 In this work, we introduces an easily animatable new SMPL-X mesh topology with shoe-like feet, enabling more realistic and flexible character animation. Key features include:
 
@@ -23,92 +47,73 @@ In this work, we introduces an easily animatable new SMPL-X mesh topology with s
 - **Subdivision for Detail**: The SMPL-X mesh is subdivided to enhance the representation of fine details, especially when computing deformation vectors.
 
 These improvements make the model more suitable for high-quality animation and rendering tasks.
-![Improvement2](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/improvement.png)
+![Improvement2](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/improvement.png) 
 
-## Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Installation](#installation)
-- [Acknowledgements](#acknowledgements)
-
-
-## Overview
-This project provides a robust solution for 3D reconstruction and avatar generation from a single image. It is designed to estimate both the pose and shape of a clothed human, enabling applications in virtual try-ons, augmented reality, and human-computer interaction.
+---
 
 ## Features
-- **2D Joint Estimation**: Using a pose estimation tool to recover 2D joint positions.  
-- **3D Joint Estimation**: Combining 2D poses with PIFu-generated meshes to estimate 3D joint positions.  
-- **SMPL-X Shape and Pose Optimization**: A multi-step optimization aligns the SMPL-X body to the PIFuHD mesh. 
-- **Clothing Geometry Refinement**: Per vertex deformation vectors to model tight and loose clothing geometries.  
-- **Texture Mapping**: A dedicated texture extraction and completion pipeline for detailed avatar representation.
 
-<!-- Here is an example of an animation:
-![Demo GIF](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/animation.gif) -->
+- **2D Joint Estimation:** Recovery of body keypoints using a 2D pose estimator.  
+- **3D Joint Estimation:** Combination of 2D poses with PIFu-generated meshes for 3D joint reconstruction.  
+- **SMPL-X Shape & Pose Optimization:** Multi-stage optimization aligning the SMPL-X model with PIFuHD reconstructions.  
+- **Clothing Geometry Refinement:** Per-vertex deformation modeling of tight and loose clothing.  
+- **Texture Mapping:** Dedicated extraction and completion pipeline for detailed, animatable texture maps.  
+- **Enhanced SMPL-X Topology:** A subdivided, shoe-like mesh topology for improved realism and articulation.
 
-## Installation
+---
 
-**For Linux**:
+## GRSI Replicability
 
-### Prerequisites
+The repository is designed for reproducibility under the **Graphics Replicability Stamp Initiative (GRSI)** standards.  
+All quantitative results (e.g., Table 1) can be regenerated through the provided scripts.  
 
-### Tested on 
+---
 
+## Installation & Setup
 
-- Python 3.10
-- PyTorch torch==2.0.1
-- Pytorch3d (version compatible with your system's CUDA version)
-- Other dependencies are listed in `requirements.txt`
+### Hardware Prerequisites
+- NVIDIA GPU (GeForce RTX 3060 or better recommended)
 
-1.
-- Operating System: Ubuntu 24.04.2 LTS
-- GPU Model: NVIDIA GeForce RTX 3060
-- NVIDIA Driver Version: 550.120
-- CUDA Version: 12.4
+### Tested Environments
 
-2.
-- Operating System: Amazon Linux 2023.6.20241111
-- Kernel: Linux 6.1.115-126.197.amzn2023.x86_64
-- GPU Model: NVIDIA L4
-- CUDA Version: 12.6
+**System 1**
+- OS: Ubuntu 24.04.2 LTS  
+- GPU: NVIDIA GeForce RTX 3060  
+- Driver: 550.120  
+- CUDA: 12.4  
 
+**System 2**
+- OS: Amazon Linux 2023.6.20241111  
+- GPU: NVIDIA L4  
+- Kernel: 6.1.115-126.197.amzn2023.x86_64  
+- CUDA: 12.6  
+
+---
 
 ### Setup Instructions
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ETS-BodyModeling/ImplicitParametricAvatar.git
-   cd ImplicitParametricAvatar
-   ```
-2. ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   pip install -U pip
-   ```
-3. ```bash
-   pip install -r requirements.txt
-   ```
+Setup involves three main steps:
 
-4. Setup submodules , run this command:
+#### 1. Automated Dependency Installation (GRSI)
+
+Run the installation script:
+
 ```bash
-   git submodule update --init --recursive
-   ```
+bash INSTALL.sh
+```
+2. Manual Download — SMPL-X Models
+
+Download the SMPL-X models from the official website
+.
+Place the .npz files in:
+
+models/smplx/
+
+  ├── SMPLX_MALE.npz
+
+  └── SMPLX_FEMALE.npz
 
 
-5. Download Pifuhd model
-   ```bash
-   sh ./submodules/pifuhd/scripts/download_trained_model.sh
-   ```
-
-6. Download the required .npz files (for both male SMPLX_MALE.npz and female models SMPLX_FEMALE.npz) from the official [SMPL-X website](https://smpl-x.is.tue.mpg.de/), place the contents into a folder named `models/smplx` in the project root directory
-
-<!-- ## Quick_testing
-To quickly run the demo, use the following command:
-   ```bash
-   python -m scripts.demo_simple
-   ```
-The pipeline loads a sample image and its corresponding pose from OpenPose (in /data/demo), runs pifuhd, the reconstruction process and generate animation. Displays the generated output result (in the output/ directory).
-
-<!-- ## testing -->
 1. Download Preprocessed X-Avatar Data
 
 To use the X-Avatar preprocessed data required for this project:
@@ -179,4 +184,3 @@ MIG '24, November 21–23, 2024, Arlington, VA, USA
 © 2024 Copyright held by the owner/author(s).  
 ACM ISBN 979-8-4007-1090-2/24/11.  
 DOI: [https://doi.org/10.1145/3677388.3696328](https://doi.org/10.1145/3677388.3696328)
-
