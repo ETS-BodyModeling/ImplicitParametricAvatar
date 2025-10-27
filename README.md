@@ -18,7 +18,8 @@ All materials required for the review are located in the root directory or refer
 - **Installation Script:** [`INSTALL.sh`](INSTALL.sh)  
   Automates environment setup and dependency installation on a vanilla system. See [Installation & Setup](#installation--setup) for details.
 - **Result Generation Scripts:**  
-  Scripts to reproduce the quantitative results presented in the paper (e.g., *Table 1*). These scripts run without parameters. See [Replicating Results (Table 1)](#replicating-results-table-1) for execution details.
+  Scripts to reproduce the quantitative results presented in the paper (e.g., *Table 1*). These scripts run without parameters. 
+ Specifically, running python -m scripts.run_pipeline_simple and python -m scripts.run_pipeline_simple_sub will generate the final results in a file named output_simple/ours.csv and output_sub/ours.csv.
 
 ---
 
