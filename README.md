@@ -100,6 +100,7 @@ Run the installation script:
 
 ```bash
 bash INSTALL.sh
+source .venv/bin/activate
 ```
 2. Manual Download — SMPL-X Models
 
