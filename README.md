@@ -71,7 +71,11 @@ All quantitative results (e.g., Table 1) can be regenerated through the provided
 ---
 
 ## Installation & Setup
-
+### Prerequisites
+- Python 3.10
+- PyTorch (version compatible with your system's CUDA version)
+- Pytorch3d (version compatible with your system's CUDA version)
+- Other dependencies are listed in `requirements.txt`
 ### Hardware Prerequisites
 - NVIDIA GPU (GeForce RTX 3060 or better recommended)
 
