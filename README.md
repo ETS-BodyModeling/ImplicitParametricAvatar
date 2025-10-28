@@ -29,7 +29,7 @@ This repository accompanies the following publication:
 
 **Fares Mallek**, **Carlos Vázquez**, and **Eric Paquette**.  
 *Parametric Model Fitting for Textured and Animatable 3D Avatar From a Single Frontal Image of a Clothed Human.*  
-Accepted in *Computers & Graphics*, 2024.
+Accepted in *Computers & Graphics*, 2025.
 
 **DOI:** _Under review_  
 **Associated Work:**  
