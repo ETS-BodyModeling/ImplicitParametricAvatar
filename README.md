@@ -11,13 +11,13 @@ All materials required for the review are located in the root directory or refer
 
 ### Repository Contents
 
-- **Submission Information:** [`submission_info.txt`](submission_info.txt)  
+- **GRSI Submission Information:** [`submission_info.txt`](submission_info.txt)  
   Contains the submission title, authors, and operating system, as required for GRSI.
-- **Liability Form:** [`LIABILITY_FORM.md`](LIABILITY_FORM.md)  
+- **GRSI Liability Form:** [`LIABILITY_FORM.md`](LIABILITY_FORM.md)  
   Provides permission for the reproducibility committee and reviewers to evaluate and publicly advertise the review.
-- **Installation Script:** [`INSTALL.sh`](INSTALL.sh)  
+- **GRSI Installation Script:** [`INSTALL.sh`](INSTALL.sh)  
   Automates environment setup and dependency installation on a vanilla system. See [Installation & Setup](#installation--setup) for details.
-- **Result Generation Scripts:**  
+- **GRSI Result Generation Scripts:**  
   Scripts to reproduce the quantitative results presented in the paper (e.g., *Table 1*). These scripts run without parameters. 
  Specifically, running python -m scripts.run_pipeline_simple and python -m scripts.run_pipeline_simple_sub will generate the final results in a file named output_simple/ours.csv and output_sub/ours.csv.
 
