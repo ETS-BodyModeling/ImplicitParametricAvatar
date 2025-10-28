@@ -127,6 +127,7 @@ Download the entire folder by clicking the **"Download"** button on the top-righ
  Extract the downloaded ZIP file (if applicable) to your local directory. For instance, place the contents into a folder named `data` in the project root directory:
 
 2. To run the simple SMPL-X reconstruction pipeline, perform texture extraction, rendering, and evaluate the shoe-like method, execute the following command (it takes around **1 hour on NVIDIA L4** or **30 minutes on RTX 3060** for 20 X-Avatar input data without the animation flag).
+   
   GRSI: This code reproduces the "Ours" entry from Table 1 of our paper:
 
    ```bash
@@ -146,6 +147,7 @@ To create animation from the reconstructed data, add the `--run_animation` flag:
 
 
 3. To run the shoe-like SMPL-X subdivided reconstruction pipeline, perform texture extraction, rendering, and animation, execute the following command (it takes around **2 hour on NVIDIA L4** or **1 hour on RTX 3060** for 20 X-Avatar input data without the animation flag).
+   
    GRSI: This code reproduces the "Ours subdiv " entry from Table 1 of our paper:
 
    ```bash
