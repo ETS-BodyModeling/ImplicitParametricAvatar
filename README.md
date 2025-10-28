@@ -41,7 +41,7 @@ Accepted in *Computers & Graphics*, 2024.
 
 ## Overview
 
-In this work, we introduces an easily animatable new SMPL-X mesh topology with shoe-like feet, enabling more realistic and flexible character animation. Key features include:
+In this work, we introduce an easily animatable new SMPL-X mesh topology with shoe-like feet, enabling more realistic and flexible character animation. Key features include:
 
 - **New SMPL-X Mesh Topology**: Designed for easy animation, the mesh features shoe-like feet for improved realism and articulation.
 ![Improvement1](https://github.com/ETS-BodyModeling/ImplicitParametricAvatar/blob/main/teaser/feet_improvement.png)
