@@ -45,7 +45,7 @@ if __name__ == "__main__":
     print("********running stats  ----------- check output_sub/output_render/{stats/stats_3d} *******")
 
     stats_command = [
-        "python", "-m", "scripts.main_stats_1",
+        "python", "-m", "scripts.main_stats_sub",
         "--output_path", args.output_path, '--output_path_render', args.output_path_render
     ]
     stats_result = subprocess.run(stats_command, capture_output=True, text=True, check=False)
