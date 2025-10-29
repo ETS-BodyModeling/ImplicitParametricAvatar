@@ -7,6 +7,13 @@ set -e  # exit immediately if any command fails
 
 echo "=== Setting up environment for GRSI reproducibility ==="
 
+# Check for Python 3.10
+if ! command -v python3.10 &> /dev/null; then
+    echo "Python 3.10 not found. Installing..."
+    sudo apt update
+    sudo apt install -y python3.10 python3.10-venv python3.10-dev
+fi
+
 # Create and activate virtual environment
 python3.10 -m venv .venv
 source .venv/bin/activate
