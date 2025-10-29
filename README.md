@@ -143,7 +143,7 @@ To create animation from the reconstructed data, add the `--run_animation` flag:
    ```
 
    The results will be saved in the `output_simple` directory with the following subfolders:
-
+   - `ours.csv`: Contains the entry "Ours" corresponding to Table 1 in our paper
    - `recons`: Contains reconstructed SMPL-X meshes and corresponding textures.
    - `output_render`: Stores rendered frontal images, normal maps, and silhouettes.
    - `stats`: Includes quantitative statistics evaluating the performance of the method.
@@ -162,7 +162,7 @@ To create animation from the reconstructed data, add the `--run_animation` flag:
    python -m scripts.run_pipeline_simple_sub --run_animation
    ```
    The results will be saved in the `output_sub` directory with the following subfolders:
-
+   - `ours.csv`: Contains the entry "Ours subdiv " corresponding to Table 1 in our paper
    - `recons`: Contains reconstructed SMPL-X meshes and corresponding textures.
    - `output_render`: Stores rendered frontal images, normal maps, and silhouettes.
    - `stats`: Includes quantitative statistics evaluating the performance of the method.
